@@ -49,8 +49,7 @@ class LandingPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: Padding(
-              padding:
-                  const EdgeInsets.all(7), // Add left padding for the avatar
+              padding: const EdgeInsets.all(7),
               child: CircleAvatar(
                 backgroundColor: appTheme.secondary,
                 child: const Text('N'),
