@@ -4,7 +4,7 @@ import 'package:delta_ebookstore_app/screens/main_screens/listening_screen.dart'
 import 'package:delta_ebookstore_app/screens/main_screens/my_book_screen.dart';
 import 'package:delta_ebookstore_app/screens/main_screens/reading_screen.dart';
 import 'package:delta_ebookstore_app/screens/main_screens/store_screen.dart';
-import 'package:delta_ebookstore_app/screens/widgets/landing/left_nav_bar.dart';
+import 'package:delta_ebookstore_app/widgets/landing/left_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

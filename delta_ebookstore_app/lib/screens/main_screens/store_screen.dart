@@ -1,4 +1,4 @@
-import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/widgets/store_screen_widgets/book_preference.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -6,11 +6,13 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppTheme theme = AppTheme.of(context);
-    return Center(
-        child: Text(
-      'Store page',
-      style: theme.typography.bodyMedium,
-    ));
+    return const SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+        child: Column(
+          children: [BookPreference()],
+        ),
+      ),
+    );
   }
 }

@@ -141,7 +141,7 @@ class ThemeTypography extends AppTypography {
         fontFamily: fontFamily,
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 12,
+        fontSize: 14,
       );
   @override
   TextStyle get bodyLargeWhite => TextStyle(
