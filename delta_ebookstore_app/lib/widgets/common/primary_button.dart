@@ -16,10 +16,10 @@ class PrimaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 60.0,
+        height: 55.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(13.7)),
+            color: color, borderRadius: BorderRadius.circular(10)),
         child: Center(child: child),
       ),
     );

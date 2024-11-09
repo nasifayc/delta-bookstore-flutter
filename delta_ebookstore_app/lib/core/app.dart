@@ -1,6 +1,8 @@
 import 'package:delta_ebookstore_app/controllers/bottom_nav/bottom_nav_cubit.dart';
 import 'package:delta_ebookstore_app/core/app_navigator.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/screens/layouts/login_page.dart';
+import 'package:delta_ebookstore_app/screens/layouts/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +24,10 @@ class _AppState extends State<App> {
         debugShowCheckedModeBanner: false,
         title: 'ebook store',
         theme: LightModeTheme().themeData,
+        routes: {
+          '/login': (context) => const LoginPage(),
+          '/signup': (context) => const SignUpPage()
+        },
         home: const AppNavigator(),
       ),
     );

@@ -15,6 +15,9 @@ abstract class AppTypography {
   TextStyle get labelLarge;
   TextStyle get labelMedium;
   TextStyle get labelSmall;
+  TextStyle get bodyLarge;
+  TextStyle get bodyMedium;
+  TextStyle get bodySmall;
   TextStyle get bodyLargeWhite;
   TextStyle get bodyMediumWhite;
   TextStyle get bodySmallWhite;
@@ -51,14 +54,14 @@ class ThemeTypography extends AppTypography {
   @override
   TextStyle get headlineLarge => TextStyle(
         fontFamily: fontFamily,
-        color: theme.primaryText,
+        color: theme.primary,
         fontWeight: FontWeight.bold,
         fontSize: 32,
       );
   @override
   TextStyle get headlineMedium => TextStyle(
         fontFamily: fontFamily,
-        color: theme.primaryText,
+        color: theme.primary,
         fontWeight: FontWeight.bold,
         fontSize: 26,
       );
@@ -66,7 +69,7 @@ class ThemeTypography extends AppTypography {
   @override
   TextStyle get headlineSmall => TextStyle(
         fontFamily: fontFamily,
-        color: theme.primaryText,
+        color: theme.primary,
         fontWeight: FontWeight.bold,
         fontSize: 16,
       );
@@ -90,7 +93,7 @@ class ThemeTypography extends AppTypography {
   @override
   TextStyle get titleSmall => TextStyle(
       fontFamily: fontFamily,
-      color: theme.primaryText,
+      color: theme.tertiary,
       fontWeight: FontWeight.normal,
       fontSize: 16,
       overflow: TextOverflow.ellipsis);
@@ -117,26 +120,48 @@ class ThemeTypography extends AppTypography {
         fontWeight: FontWeight.bold,
         fontSize: 14,
       );
+  @override
+  TextStyle get bodyLarge => TextStyle(
+        fontFamily: fontFamily,
+        color: theme.primaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 22,
+      );
 
   @override
-  TextStyle get bodyLargeWhite => TextStyle(
+  TextStyle get bodyMedium => TextStyle(
         fontFamily: fontFamily,
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16,
       );
+
   @override
-  TextStyle get bodyMediumWhite => TextStyle(
-        fontFamily: fontFamily,
-        color: theme.primaryText,
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
-      );
-  @override
-  TextStyle get bodySmallWhite => TextStyle(
+  TextStyle get bodySmall => TextStyle(
         fontFamily: fontFamily,
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12,
+      );
+  @override
+  TextStyle get bodyLargeWhite => TextStyle(
+        fontFamily: fontFamily,
+        color: theme.secondaryText,
+        fontWeight: FontWeight.bold,
+        fontSize: 26,
+      );
+  @override
+  TextStyle get bodyMediumWhite => TextStyle(
+        fontFamily: fontFamily,
+        color: theme.secondaryText,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      );
+  @override
+  TextStyle get bodySmallWhite => TextStyle(
+        fontFamily: fontFamily,
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
+        fontSize: 16,
       );
 }
