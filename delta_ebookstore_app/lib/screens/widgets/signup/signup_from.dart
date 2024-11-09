@@ -13,6 +13,7 @@ class SignupFrom extends StatefulWidget {
 }
 
 class _SignupFromState extends State<SignupFrom> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -30,111 +31,171 @@ class _SignupFromState extends State<SignupFrom> {
                 topLeft: Radius.circular(25), topRight: Radius.circular(25))),
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                "Create account",
-                style: theme.typography.headlineMedium,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Enter your details below",
-                style: theme.typography.titleSmall,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: formComponents.buildNormalTextField(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Text(
+                  "Create account",
+                  style: theme.typography.headlineMedium,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Enter your details below",
+                  style: theme.typography.titleSmall,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: formComponents.buildNormalTextField(
                         _usernameController,
                         Text(
                           'Username',
                           style: theme.typography.titleSmall,
                         ),
-                        prefixIcon: const Icon(Icons.person)),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: formComponents.buildNormalTextField(
+                        prefixIcon: const Icon(Icons.person),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'username is required!';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: formComponents.buildNormalTextField(
                         _emailController,
                         Text(
                           'Email',
                           style: theme.typography.titleSmall,
                         ),
-                        prefixIcon: const Icon(Icons.email)),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              formComponents.buildNormalTextField(
+                        prefixIcon: const Icon(Icons.email),
+                        validator: (value) {
+                          final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                          if (value == null || value.isEmpty) {
+                            return 'email is required!';
+                          }
+
+                          // Validate email format
+                          if (!emailRegex
+                              .hasMatch(_emailController.text.trim())) {
+                            return 'Invalid email format.';
+                          }
+                          return null;
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                formComponents.buildNormalTextField(
                   _phoneController,
                   Text(
                     "Phone",
                     style: theme.typography.titleSmall,
                   ),
-                  prefixIcon: const Icon(Icons.phone)),
-              const SizedBox(
-                height: 10,
-              ),
-              formComponents.buildPasswordField(
+                  prefixIcon: const Icon(Icons.phone),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'phone is required!';
+                    }
+
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                formComponents.buildPasswordField(
                   _passwordController,
                   Text(
                     'Password',
                     style: theme.typography.titleSmall,
-                  )),
-              const SizedBox(
-                height: 20,
-              ),
-              PrimaryButton(
-                  onPressed: null,
-                  color: theme.primary,
-                  child: Text(
-                    'Sign Up',
-                    style: theme.typography.bodyMediumWhite,
-                  )),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Have an account?',
-                    style: theme.typography.bodyMedium,
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushReplacementNamed('/login'),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: theme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                  prefixIcon: const Icon(Icons.lock),
+                  validator: (value) {
+                    final passwordRegex =
+                        RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                    if (value == null || value.isEmpty) {
+                      return 'password is required!';
+                    }
+
+                    if (!passwordRegex
+                        .hasMatch(_passwordController.text.trim())) {
+                      return 'Password must be at least 8 characters long and contain both letters and numbers.';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text("Data Submited successfuly"),
+                          backgroundColor: theme.primary,
+                        ),
+                      );
+                    }
+                  },
+                  child: PrimaryButton(
+                      onPressed: null,
+                      color: theme.primary,
+                      child: Text(
+                        'Sign Up',
+                        style: theme.typography.bodyMediumWhite,
+                      )),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Have an account?',
+                      style: theme.typography.bodyMedium,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              const OrDivider(),
-              const SizedBox(
-                height: 25,
-              ),
-              const GoogleAuthButton()
-            ],
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () =>
+                          Navigator.of(context).pushReplacementNamed('/login'),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                            color: theme.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const OrDivider(),
+                const SizedBox(
+                  height: 25,
+                ),
+                const GoogleAuthButton()
+              ],
+            ),
           ),
         ),
       ),

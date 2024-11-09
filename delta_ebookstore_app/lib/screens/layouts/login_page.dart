@@ -17,18 +17,13 @@ class _LoginPageState extends State<LoginPage> {
     AppTheme theme = AppTheme.of(context);
     return Scaffold(
       backgroundColor: theme.primary,
-      body: Column(
+      body: const Column(
         children: [
-          WelcomeCard(
-            child: Text(
-              'Welcome Back!',
-              style: theme.typography.bodyLargeWhite,
-            ),
-          ),
-          const SizedBox(
+          WelcomeCard(),
+          SizedBox(
             height: 10,
           ),
-          const LoginForm()
+          LoginForm()
         ],
       ),
     );

@@ -16,18 +16,13 @@ class _SignUpPageState extends State<SignUpPage> {
     AppTheme theme = AppTheme.of(context);
     return Scaffold(
       backgroundColor: theme.primary,
-      body: Column(
+      body: const Column(
         children: [
-          WelcomeCard(
-            child: Text(
-              'Create account',
-              style: theme.typography.bodyLargeWhite,
-            ),
-          ),
-          const SizedBox(
+          WelcomeCard(),
+          SizedBox(
             height: 10,
           ),
-          const SignupFrom()
+          SignupFrom()
         ],
       ),
     );

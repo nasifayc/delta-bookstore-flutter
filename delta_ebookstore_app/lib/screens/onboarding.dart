@@ -1,4 +1,6 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/screens/layouts/sign_up_page.dart';
+import 'package:delta_ebookstore_app/screens/main_screens/landing_page.dart';
 import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
@@ -9,34 +11,47 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  final PageController _pageController = PageController();
   final List<Map<String, String>> onboardingData = [
     {
       "image": "assets/images/onboarding1.png",
+      "title": "Discover Thousands of Ebooks",
       "message":
-          "Discover Thousands of Ebooks\nBrowse through a wide variety of ebooks across genres. Find your next favorite read with ease!"
+          "Browse through a wide variety of ebooks across genres. Find your next favorite read with ease!"
     },
     {
       "image": "assets/images/onboarding2.png",
+      "title": "Seamless Reading Experience",
       "message":
-          "Seamless Reading Experience\nEnjoy a smooth and immersive reading experience with features like adjustable font sizes, night mode, and bookmarks."
+          "Enjoy a smooth and immersive reading experience with features like adjustable font sizes, night mode, and bookmarks."
     },
     {
       "image": "assets/images/onboarding3.png",
+      "title": "Secure & Easy Checkout",
       "message":
-          "Secure & Easy Checkout\nWith easy checkout and multiple payment options, buying your next book has never been more convenient!"
+          "With easy checkout and multiple payment options, buying your next book has never been more convenient!"
     },
   ];
 
   int _currentPage = 0;
 
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   void _nextPage() {
     if (_currentPage < onboardingData.length - 1) {
-      setState(() {
-        _currentPage++;
-      });
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     } else {
-      // Handle the end of the onboarding (e.g., navigate to the main app screen)
-      // Navigator.pushReplacement(...); // Navigate to the next screen
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/signup',
+        (Route<dynamic> route) => false,
+      );
     }
   }
 
@@ -48,8 +63,8 @@ class _OnboardingState extends State<Onboarding> {
         children: [
           Expanded(
             child: PageView.builder(
+              controller: _pageController,
               itemCount: onboardingData.length,
-              controller: PageController(initialPage: _currentPage),
               onPageChanged: (index) {
                 setState(() {
                   _currentPage = index;
@@ -69,9 +84,16 @@ class _OnboardingState extends State<Onboarding> {
                       ),
                       const SizedBox(height: 30),
                       Text(
-                        onboardingData[i]["message"]!,
-                        style: theme.typography.headlineSmall,
+                        onboardingData[i]["title"]!,
+                        style: theme.typography.headlineMedium,
                         textAlign: TextAlign.start,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        onboardingData[i]["message"]!,
+                        style: theme.typography.bodyMedium,
+                        textAlign: TextAlign.start,
+                        maxLines: 10,
                       ),
                     ],
                   ),
