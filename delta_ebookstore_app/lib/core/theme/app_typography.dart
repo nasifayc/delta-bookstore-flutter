@@ -101,14 +101,14 @@ class ThemeTypography extends AppTypography {
   @override
   TextStyle get labelLarge => TextStyle(
         fontFamily: fontFamily,
-        color: theme.primaryText,
+        color: theme.primaryBackground,
         fontWeight: FontWeight.bold,
         fontSize: 18,
       );
   @override
   TextStyle get labelMedium => TextStyle(
       fontFamily: fontFamily,
-      color: theme.primaryText,
+      color: theme.primaryBackground,
       fontWeight: FontWeight.bold,
       fontSize: 16,
       overflow: TextOverflow.ellipsis);
@@ -116,7 +116,7 @@ class ThemeTypography extends AppTypography {
   @override
   TextStyle get labelSmall => TextStyle(
         fontFamily: fontFamily,
-        color: theme.primaryText,
+        color: theme.primaryBackground,
         fontWeight: FontWeight.bold,
         fontSize: 14,
       );
