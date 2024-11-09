@@ -1,3 +1,4 @@
+import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ListeningScreen extends StatelessWidget {
@@ -5,6 +6,11 @@ class ListeningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Listening page'));
+    AppTheme theme = AppTheme.of(context);
+    return Center(
+        child: Text(
+      'Listening page',
+      style: theme.typography.bodyMedium,
+    ));
   }
 }

@@ -4,6 +4,7 @@ import 'package:delta_ebookstore_app/screens/main_screens/listening_screen.dart'
 import 'package:delta_ebookstore_app/screens/main_screens/my_book_screen.dart';
 import 'package:delta_ebookstore_app/screens/main_screens/reading_screen.dart';
 import 'package:delta_ebookstore_app/screens/main_screens/store_screen.dart';
+import 'package:delta_ebookstore_app/screens/widgets/landing/left_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +13,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = AppTheme.of(context);
+    AppTheme appTheme = AppTheme.of(context);
 
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
@@ -48,26 +49,25 @@ class LandingPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.all(7),
-              child: CircleAvatar(
-                backgroundColor: appTheme.secondary,
-                child: const Text('N'),
-              ),
-            ),
             elevation: 1,
             title: Text(
               getTitle(state),
               style: appTheme.typography.headlineSmall,
             ),
             centerTitle: true,
-            actions: const [Icon(Icons.search)],
+            actions: [
+              Icon(
+                Icons.search,
+                color: appTheme.primary,
+              )
+            ],
           ),
+          drawer: const LeftNavBar(),
           body: getCurrentScreen(state),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: BottomNavState.values.indexOf(state),
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: appTheme.secondary,
+            selectedItemColor: appTheme.primary,
             unselectedItemColor: Colors.grey,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(

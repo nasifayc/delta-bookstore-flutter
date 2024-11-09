@@ -1,3 +1,4 @@
+import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -5,6 +6,11 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Store page'));
+    AppTheme theme = AppTheme.of(context);
+    return Center(
+        child: Text(
+      'Store page',
+      style: theme.typography.bodyMedium,
+    ));
   }
 }

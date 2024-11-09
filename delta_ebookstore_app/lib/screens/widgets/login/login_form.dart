@@ -1,4 +1,5 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/screens/main_screens/landing_page.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/google_auth_button.dart';
 import 'package:delta_ebookstore_app/widgets/common/or_divider.dart';
@@ -83,23 +84,26 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(
                   height: 20,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text("Welcome!"),
-                        backgroundColor: theme.primary,
-                      ));
-                    }
-                  },
-                  child: PrimaryButton(
-                      onPressed: null,
-                      color: theme.primary,
-                      child: Text(
-                        'Login',
-                        style: theme.typography.bodyMediumWhite,
-                      )),
-                ),
+                PrimaryButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: const Text("Welcome!"),
+                          backgroundColor: theme.primary,
+                        ));
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const LandingPage()), // Your main screen widget
+                          (route) => false,
+                        );
+                      }
+                    },
+                    color: theme.primary,
+                    child: Text(
+                      'Login',
+                      style: theme.typography.bodyMediumWhite,
+                    )),
                 const SizedBox(
                   height: 5,
                 ),
