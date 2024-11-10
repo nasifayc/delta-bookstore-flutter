@@ -1,4 +1,5 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 
 class LeftNavBar extends StatelessWidget {
@@ -36,9 +37,7 @@ class LeftNavBar extends StatelessWidget {
               'Categories',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Categories
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(
@@ -49,9 +48,7 @@ class LeftNavBar extends StatelessWidget {
               'Wishlist',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Wishlist
-            },
+            onTap: () {},
           ),
           // ListTile(
           //   leading: Icon(
@@ -63,7 +60,7 @@ class LeftNavBar extends StatelessWidget {
           //     style: theme.typography.bodySmall,
           //   ),
           //   onTap: () {
-          //     // Navigate to Purchased Books
+          //
           //   },
           // ),
           ListTile(
@@ -75,9 +72,7 @@ class LeftNavBar extends StatelessWidget {
               'Downloads',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Downloads
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(
@@ -88,9 +83,7 @@ class LeftNavBar extends StatelessWidget {
               'Account',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Account
-            },
+            onTap: () {},
           ),
           // ListTile(
           //   leading: Icon(
@@ -102,7 +95,7 @@ class LeftNavBar extends StatelessWidget {
           //     style: theme.typography.bodySmall,
           //   ),
           //   onTap: () {
-          //     // Navigate to Purchase History
+          //
           //   },
           // ),
           ListTile(
@@ -114,9 +107,7 @@ class LeftNavBar extends StatelessWidget {
               'Light theme',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Notifications
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(
@@ -127,9 +118,7 @@ class LeftNavBar extends StatelessWidget {
               'Settings',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to Settings
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(
@@ -140,9 +129,7 @@ class LeftNavBar extends StatelessWidget {
               'About Us',
               style: theme.typography.bodySmall,
             ),
-            onTap: () {
-              // Navigate to About Us
-            },
+            onTap: () {},
           ),
           const Divider(),
           ListTile(
@@ -155,7 +142,12 @@ class LeftNavBar extends StatelessWidget {
               style: theme.typography.bodySmall,
             ),
             onTap: () {
-              // Handle Logout
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const Onboarding()), // Your main screen widget
+                (route) => false,
+              );
             },
           ),
         ],

@@ -87,16 +87,18 @@ class _LoginFormState extends State<LoginForm> {
                 PrimaryButton(
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: const Text("Welcome!"),
-                          backgroundColor: theme.primary,
-                        ));
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const LandingPage()), // Your main screen widget
-                          (route) => false,
-                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //   content: const Text("Welcome!"),
+                        //   backgroundColor: theme.primary,
+                        // ));
+
+                        Navigator.of(context).pushNamed('/otp');
+                        // Navigator.of(context).pushAndRemoveUntil(
+                        //   MaterialPageRoute(
+                        //       builder: (context) =>
+                        //           const LandingPage()), // Your main screen widget
+                        //   (route) => false,
+                        // );
                       }
                     },
                     color: theme.primary,
