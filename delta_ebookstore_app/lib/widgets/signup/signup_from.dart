@@ -152,12 +152,6 @@ class _SignupFromState extends State<SignupFrom> {
                           ),
                         );
                         Navigator.of(context).pushNamed('/otp');
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //   MaterialPageRoute(
-                        //       builder: (context) =>
-                        //           const LandingPage()), // Your main screen widget
-                        //   (route) => false,
-                        // );
                       }
                     },
                     color: theme.primary,
