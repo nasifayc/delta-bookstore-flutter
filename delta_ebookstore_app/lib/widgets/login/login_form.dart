@@ -1,5 +1,4 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
-import 'package:delta_ebookstore_app/screens/main_screens/landing_page.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/google_auth_button.dart';
 import 'package:delta_ebookstore_app/widgets/common/or_divider.dart';

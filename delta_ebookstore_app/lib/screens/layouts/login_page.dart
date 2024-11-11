@@ -1,6 +1,5 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/login/login_form.dart';
-import 'package:delta_ebookstore_app/widgets/signup/signup_from.dart';
 import 'package:delta_ebookstore_app/widgets/welcome_card.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,4 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
-import 'package:delta_ebookstore_app/screens/layouts/sign_up_page.dart';
-import 'package:delta_ebookstore_app/screens/main_screens/landing_page.dart';
 import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
