@@ -8,20 +8,22 @@ class WelcomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     AppTheme theme = AppTheme.of(context);
     // Size size = MediaQuery.of(context).size;
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Image.asset(
-              'assets/images/open-book.png',
-              color: theme.primaryBackground,
-              height: 150,
-              width: 150,
-            ),
+          Text(
+            'DELTA EBOOKSTORE',
+            style: theme.typography.bodyMediumWhite,
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
+          ),
+          Image.asset(
+            'assets/images/open-book.png',
+            color: theme.primaryBackground,
+            height: 150,
+            width: 150,
           ),
         ],
       ),

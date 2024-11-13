@@ -16,14 +16,16 @@ class _SignUpPageState extends State<SignUpPage> {
     AppTheme theme = AppTheme.of(context);
     return Scaffold(
       backgroundColor: theme.primary,
-      body: const Column(
-        children: [
-          WelcomeCard(),
-          SizedBox(
-            height: 10,
-          ),
-          SignupFrom()
-        ],
+      body: const SafeArea(
+        child: Column(
+          children: [
+            WelcomeCard(),
+            SizedBox(
+              height: 10,
+            ),
+            SignupFrom()
+          ],
+        ),
       ),
     );
   }
