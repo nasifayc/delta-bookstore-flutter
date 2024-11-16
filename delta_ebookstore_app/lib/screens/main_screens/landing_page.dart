@@ -56,9 +56,12 @@ class LandingPage extends StatelessWidget {
             ),
             centerTitle: true,
             actions: [
-              Icon(
-                Icons.search,
-                color: appTheme.primary,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.search,
+                  color: appTheme.primary,
+                ),
               )
             ],
           ),
