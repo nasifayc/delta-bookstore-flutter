@@ -22,8 +22,6 @@ class LeftNavBar extends StatelessWidget {
               ),
             ),
             decoration: const BoxDecoration(
-                // borderRadius:
-                //     BorderRadius.only(bottomRight: Radius.circular(70)),
                 image: DecorationImage(
                     image: AssetImage("assets/images/nav_background.jpg"),
                     fit: BoxFit.cover)),
