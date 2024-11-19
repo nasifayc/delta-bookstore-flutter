@@ -13,6 +13,7 @@ class PopularAuthorsCard extends StatelessWidget {
           height: 60,
           width: 60,
           decoration: BoxDecoration(
+            border: Border.all(width: 1, color: theme.primary),
             borderRadius: BorderRadius.circular(50),
             image: const DecorationImage(
               image: AssetImage('assets/images/boy.png'),

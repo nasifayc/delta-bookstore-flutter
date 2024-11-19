@@ -4,6 +4,7 @@ import 'package:delta_ebookstore_app/core/app_navigator.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/screens/layouts/login_page.dart';
 import 'package:delta_ebookstore_app/screens/layouts/otp_screen.dart';
+import 'package:delta_ebookstore_app/screens/layouts/setting_page.dart';
 import 'package:delta_ebookstore_app/screens/layouts/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
               '/login': (context) => const LoginPage(),
               '/signup': (context) => const SignUpPage(),
               '/otp': (context) => const OtpScreen(),
+              '/settings': (context) => const SettingPage(),
             },
             home: const AppNavigator(),
           );

@@ -48,7 +48,7 @@ class LandingPage extends StatelessWidget {
         }
 
         return Scaffold(
-          backgroundColor: appTheme.primaryBackground,
+          // backgroundColor: appTheme.primaryBackground,
           appBar: AppBar(
             elevation: 1,
             title: Text(

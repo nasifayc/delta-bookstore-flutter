@@ -111,7 +111,9 @@ class LeftNavBar extends StatelessWidget {
               'Settings',
               style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
           ),
           ListTile(
             leading: Icon(

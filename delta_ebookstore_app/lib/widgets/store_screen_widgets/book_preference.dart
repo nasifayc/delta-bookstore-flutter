@@ -33,7 +33,7 @@ class BookPreference extends StatelessWidget {
               onPressed: () {
                 debugPrint('${category['label']} pressed');
               },
-              color: theme.primary.withOpacity(0.9),
+              color: theme.primary.withOpacity(1),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(

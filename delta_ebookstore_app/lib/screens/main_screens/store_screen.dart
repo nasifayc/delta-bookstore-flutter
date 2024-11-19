@@ -65,7 +65,7 @@ class StoreScreen extends StatelessWidget {
               style: theme.typography.headlineSmall,
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const PopularAuthors(),
           ],
