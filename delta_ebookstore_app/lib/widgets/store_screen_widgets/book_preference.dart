@@ -8,52 +8,54 @@ class BookPreference extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = AppTheme.of(context);
-    return Row(
-      children: [
-        Expanded(
+
+    // List of book categories
+    final List<Map<String, dynamic>> categories = [
+      {'icon': Icons.book, 'label': 'Ebooks'},
+      {'icon': Icons.headphones, 'label': 'Audio Books'},
+      {'icon': Icons.menu_book, 'label': 'Comics'},
+      {'icon': Icons.school, 'label': 'Educational'},
+      {'icon': Icons.science, 'label': 'Science Fiction'},
+    ];
+
+    return SizedBox(
+      height: 50, // Adjust height as needed
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return Padding(
+            padding: EdgeInsets.only(
+              left: index == 0 ? 0 : 10,
+            ),
             child: SecondaryButton(
-                onPressed: null,
-                color: theme.primary.withOpacity(0.9),
+              onPressed: () {
+                debugPrint('${category['label']} pressed');
+              },
+              color: theme.primary.withOpacity(0.9),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.book,
+                      category['icon'],
                       size: 15,
                       color: theme.primaryBackground,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
+                    const SizedBox(width: 5),
                     Text(
-                      'Ebooks',
+                      category['label'],
                       style: theme.typography.labelSmall,
-                    )
-                  ],
-                ))),
-        const SizedBox(width: 10),
-        Expanded(
-            child: SecondaryButton(
-                onPressed: null,
-                color: theme.primary.withOpacity(0.9),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.headphones,
-                      size: 15,
-                      color: theme.primaryBackground,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Audio Books',
-                      style: theme.typography.labelSmall,
-                    )
                   ],
-                )))
-      ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

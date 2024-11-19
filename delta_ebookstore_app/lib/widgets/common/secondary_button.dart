@@ -18,7 +18,7 @@ class SecondaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 45.0,
+        // height: 40.0,
         // width: MediaQuery.of(context).size.width * 0.5,
         decoration: BoxDecoration(
             // border: Border.all(color: theme.primary, width: 1),
