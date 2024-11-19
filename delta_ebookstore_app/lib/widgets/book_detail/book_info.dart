@@ -1,5 +1,6 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/models/book/book_model.dart';
+import 'package:delta_ebookstore_app/screens/layouts/purchase.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,13 @@ class BookInfo extends StatelessWidget {
                 ),
               ),
               PrimaryButton(
-                onPressed: null,
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Purchase(
+                      book: book,
+                    ),
+                  ));
+                },
                 color: theme.primary,
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: const Text('Get Book'),
@@ -198,6 +205,41 @@ class BookInfo extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            decoration: BoxDecoration(
+                color: theme.primary.withOpacity(0.5),
+                border: Border.all(color: theme.primary, width: 1),
+                borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: Colors.orange,
+                      ),
+                      Text(
+                        '4.8/5',
+                        style: theme.typography.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  '11 Votes',
+                  style: theme.typography.bodySmall,
+                ),
+                Icon(
+                  Icons.chevron_right_sharp,
+                  color: theme.secondary,
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

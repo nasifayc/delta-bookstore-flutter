@@ -6,6 +6,7 @@ class BookModel extends Equatable {
   final bool hasAudio;
   final double rating;
   final int reviews;
+  final int price;
   final String genre;
   final int year;
   final String language;
@@ -18,6 +19,7 @@ class BookModel extends Equatable {
     required this.hasAudio,
     required this.rating,
     required this.reviews,
+    required this.price,
     required this.genre,
     required this.year,
     required this.language,
@@ -33,6 +35,7 @@ class BookModel extends Equatable {
       hasAudio: json['hasAudio'] as bool,
       rating: (json['rating'] as num).toDouble(),
       reviews: json['reviews'] as int,
+      price: json['price'] as int,
       genre: json['genre'] as String,
       year: json['year'] as int,
       language: json['language'] as String,
@@ -49,6 +52,7 @@ class BookModel extends Equatable {
       'hasAudio': hasAudio,
       'rating': rating,
       'reviews': reviews,
+      'price': price,
       'genre': genre,
       'year': year,
       'language': language,
@@ -64,6 +68,7 @@ class BookModel extends Equatable {
         hasAudio,
         rating,
         reviews,
+        price,
         genre,
         year,
         language,
@@ -79,6 +84,7 @@ class BookModel extends Equatable {
           hasAudio: false,
           rating: 4.3,
           reviews: 25000,
+          price: 300,
           genre: "Thriller",
           year: 2019,
           language: "English",
@@ -90,6 +96,7 @@ class BookModel extends Equatable {
           hasAudio: true,
           rating: 4.8,
           reviews: 35000,
+          price: 450,
           genre: "Self-Help",
           year: 2018,
           language: "English",
@@ -101,6 +108,7 @@ class BookModel extends Equatable {
           hasAudio: true,
           rating: 4.7,
           reviews: 40000,
+          price: 678,
           genre: "Science Fiction",
           year: 1965,
           language: "English",
@@ -112,6 +120,7 @@ class BookModel extends Equatable {
           hasAudio: true,
           rating: 4.9,
           reviews: 50000,
+          price: 789,
           genre: "Biography",
           year: 2018,
           language: "English",
@@ -123,6 +132,7 @@ class BookModel extends Equatable {
           hasAudio: false,
           rating: 4.6,
           reviews: 45000,
+          price: 1034,
           genre: "Fiction",
           year: 1988,
           language: "Portuguese",

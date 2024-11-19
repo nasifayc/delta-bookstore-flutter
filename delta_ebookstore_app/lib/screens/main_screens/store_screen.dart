@@ -1,6 +1,7 @@
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/store_screen_widgets/book_preference.dart';
 import 'package:delta_ebookstore_app/widgets/store_screen_widgets/featured_books.dart';
+import 'package:delta_ebookstore_app/widgets/store_screen_widgets/popular_authors.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -57,12 +58,16 @@ class StoreScreen extends StatelessWidget {
             ),
             const FeaturedBooks(),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               'Popular Authors',
               style: theme.typography.headlineSmall,
-            )
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const PopularAuthors(),
           ],
         ),
       ),

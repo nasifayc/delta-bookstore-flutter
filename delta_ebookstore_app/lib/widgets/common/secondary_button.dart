@@ -5,12 +5,14 @@ class SecondaryButton extends StatelessWidget {
   final Widget child;
   final void Function()? onPressed;
   final Color? color;
+  final double? width;
 
   const SecondaryButton(
       {super.key,
       required this.child,
       required this.onPressed,
-      required this.color});
+      required this.color,
+      this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class SecondaryButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         // height: 40.0,
-        // width: MediaQuery.of(context).size.width * 0.5,
+        width: width ?? MediaQuery.of(context).size.width * 0.5,
         decoration: BoxDecoration(
             // border: Border.all(color: theme.primary, width: 1),
             color: color,
