@@ -74,8 +74,8 @@ class _PurchaseState extends State<Purchase> {
                                 Icons.book,
                                 size: 15,
                                 color: index == 0
-                                    ? theme.primaryBackground
-                                    : theme.secondary,
+                                    ? theme.secondary
+                                    : theme.primary,
                               ),
                               const SizedBox(width: 5),
                               Text(

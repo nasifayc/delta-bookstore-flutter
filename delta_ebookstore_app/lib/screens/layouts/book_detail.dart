@@ -20,16 +20,12 @@ class BookDetail extends StatelessWidget {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: Icon(
-            Icons.arrow_back,
-            color: theme.primaryBackground,
-          ),
+          child: Icon(Icons.arrow_back, color: theme.tertiary),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Icon(Icons.favorite_border_rounded,
-                color: theme.primaryBackground),
+            child: Icon(Icons.favorite_border_rounded, color: theme.tertiary),
           )
         ],
         backgroundColor: Colors.transparent,

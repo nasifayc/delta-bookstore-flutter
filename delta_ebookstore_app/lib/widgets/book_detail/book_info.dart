@@ -31,8 +31,8 @@ class BookInfo extends StatelessWidget {
                     const SizedBox(height: 3),
                     Text(
                       'By ${book.author}',
-                      style: theme.typography.titleSmall
-                          .copyWith(color: theme.secondary),
+                      style: theme.typography.titleSmall.copyWith(
+                          color: theme.tertiary, fontWeight: FontWeight.normal),
                     ),
                   ],
                 ),
@@ -47,7 +47,10 @@ class BookInfo extends StatelessWidget {
                 },
                 color: theme.primary,
                 width: MediaQuery.of(context).size.width * 0.4,
-                child: const Text('Get Book'),
+                child: Text(
+                  'Get Book',
+                  style: theme.typography.labelMedium,
+                ),
               )
             ],
           ),
@@ -58,14 +61,14 @@ class BookInfo extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             decoration: BoxDecoration(
-                color: theme.primary.withOpacity(0.5),
+                color: theme.primary.withOpacity(0.2),
                 border: Border.all(color: theme.primary, width: 1),
                 borderRadius: BorderRadius.circular(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
@@ -93,7 +96,7 @@ class BookInfo extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
@@ -121,7 +124,7 @@ class BookInfo extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
@@ -149,7 +152,7 @@ class BookInfo extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
                       children: [
@@ -171,7 +174,7 @@ class BookInfo extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      book.totalPurchases.toString(),
+                      '${book.totalPurchases}+',
                       style: theme.typography.bodySmall,
                     )
                   ],
@@ -209,7 +212,7 @@ class BookInfo extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             decoration: BoxDecoration(
-                color: theme.primary.withOpacity(0.5),
+                color: theme.primary.withOpacity(0.2),
                 border: Border.all(color: theme.primary, width: 1),
                 borderRadius: BorderRadius.circular(10)),
             child: Row(
@@ -235,7 +238,7 @@ class BookInfo extends StatelessWidget {
                 ),
                 Icon(
                   Icons.chevron_right_sharp,
-                  color: theme.secondary,
+                  color: theme.primary,
                 )
               ],
             ),

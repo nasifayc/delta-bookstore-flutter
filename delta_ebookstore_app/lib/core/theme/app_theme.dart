@@ -69,19 +69,19 @@ class DarkModeTheme extends AppTheme {
   Brightness get brightness => Brightness.dark;
 
   @override
-  Color get primary => const Color(0xFFBB86FC);
+  Color get primary => const Color(0xFFFFFFFF);
   @override
-  Color get secondary => const Color(0xFF03DAC6);
+  Color get secondary => const Color(0xFF1C1C3B);
   @override
-  Color get tertiary => const Color(0xFFCF6679);
+  Color get tertiary => const Color(0xFF9E9E9E);
 
   @override
   Color get primaryText => const Color(0xFFFFFFFF);
   @override
-  Color get secondaryText => const Color(0xFFB0B0B0);
+  Color get secondaryText => const Color(0xFF1C1C3B);
 
   @override
-  Color get primaryBackground => const Color(0xFF121212);
+  Color get primaryBackground => const Color(0xFF1C1C3B);
   @override
   LinearGradient get primaryBackgroundGradient => const LinearGradient(
         begin: Alignment.topCenter,

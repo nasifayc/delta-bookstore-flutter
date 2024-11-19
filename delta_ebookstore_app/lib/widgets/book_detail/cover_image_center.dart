@@ -14,7 +14,7 @@ class CoverImageCenter extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 2, color: theme.primaryBackground),
+        border: Border.all(width: 2, color: theme.tertiary),
         image: DecorationImage(
           image: AssetImage(book.coverImage),
           fit: BoxFit.cover, // Ensure the image covers the container

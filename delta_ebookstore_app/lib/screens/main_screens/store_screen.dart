@@ -18,7 +18,7 @@ class StoreScreen extends StatelessWidget {
           children: [
             const BookPreference(),
             const SizedBox(
-              height: 10,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,11 +34,11 @@ class StoreScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const FeaturedBooks(),
             const SizedBox(
-              height: 10,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,7 +54,7 @@ class StoreScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const FeaturedBooks(),
             const SizedBox(

@@ -13,22 +13,33 @@ class LeftNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     AppTheme theme = AppTheme.of(context);
     return Drawer(
+      backgroundColor: theme.primaryBackground,
       child: ListView(
         padding: const EdgeInsets.all(0),
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text("Nasifay Chala"),
-            accountEmail: const Text("nasifayc11@gmail.com"),
+            accountName: Text(
+              "Nasifay Chala",
+              style: theme.typography.headlineMedium,
+            ),
+            accountEmail: Text(
+              "nasifayc11@gmail.com",
+              style: theme.typography.headlineSmall,
+            ),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: theme.primaryBackground,
+              backgroundColor: theme.tertiary,
               child: ClipOval(
                 child: Image.asset('assets/images/boy.png'),
               ),
             ),
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/nav_background.jpg"),
-                    fit: BoxFit.cover)),
+            decoration: BoxDecoration(color: theme.primaryBackground),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(
+              color: theme.primary,
+              thickness: 1,
+            ),
           ),
           ListTile(
             leading: Icon(
@@ -63,20 +74,32 @@ class LeftNavBar extends StatelessWidget {
             ),
             onTap: () {},
           ),
-          ListTile(
-            leading: Icon(
-              Icons.wb_sunny,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(
               color: theme.primary,
+              thickness: 1,
             ),
-            title: Text(
-              'Light theme',
-              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
-            ),
-            onTap: () {
-              final themeCubit = context.read<ThemeCubit>();
-              final isDarkMode = themeCubit.state == ThemeMode.dark;
-              log(isDarkMode.toString()); // Access state
-              themeCubit.toggleTheme(!isDarkMode); // Toggle the theme
+          ),
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, state) {
+              return ListTile(
+                leading: Icon(
+                  state == ThemeMode.dark ? Icons.wb_sunny : Icons.dark_mode,
+                  color: theme.primary,
+                ),
+                title: Text(
+                  state == ThemeMode.dark ? 'Light Mode' : 'Dark Mode',
+                  style: theme.typography.headlineSmall.copyWith(fontSize: 16),
+                ),
+                onTap: () {
+                  final isDarkMode = state == ThemeMode.dark;
+                  log(isDarkMode.toString()); // Access state
+                  context
+                      .read<ThemeCubit>()
+                      .toggleTheme(!isDarkMode); // Toggle the theme
+                },
+              );
             },
           ),
           ListTile(
@@ -101,7 +124,13 @@ class LeftNavBar extends StatelessWidget {
             ),
             onTap: () {},
           ),
-          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Divider(
+              color: theme.primary,
+              thickness: 1,
+            ),
+          ),
           ListTile(
             leading: Icon(
               Icons.logout,
