@@ -63,16 +63,34 @@ class _PurchaseState extends State<Purchase> {
                           }),
                       color: index == 0
                           ? theme.primary
-                          : theme.primary.withOpacity(0.5),
+                          : theme.primary.withOpacity(0.1),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Ebook',
-                            style: theme.typography.bodySmall,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.book,
+                                size: 15,
+                                color: index == 0
+                                    ? theme.primaryBackground
+                                    : theme.secondary,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Ebook',
+                                style: index == 0
+                                    ? theme.typography.bodySmallWhite
+                                    : theme.typography.titleMedium,
+                              ),
+                            ],
                           ),
                           Text(
-                            widget.book.price.toString(),
-                            style: theme.typography.titleSmall,
+                            '${widget.book.price} ETB',
+                            style: index == 0
+                                ? theme.typography.bodySmallWhite
+                                : theme.typography.bodySmall,
                           )
                         ],
                       )),
@@ -83,16 +101,34 @@ class _PurchaseState extends State<Purchase> {
                           }),
                       color: index == 1
                           ? theme.primary
-                          : theme.primary.withOpacity(0.5),
+                          : theme.primary.withOpacity(0.1),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Audio',
-                            style: theme.typography.bodySmall,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.headphones,
+                                size: 15,
+                                color: index == 1
+                                    ? theme.primaryBackground
+                                    : theme.secondary,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Audio',
+                                style: index == 1
+                                    ? theme.typography.bodySmallWhite
+                                    : theme.typography.titleMedium,
+                              ),
+                            ],
                           ),
                           Text(
-                            widget.book.price.toString(),
-                            style: theme.typography.titleSmall,
+                            '${widget.book.price + 45} ETB',
+                            style: index == 1
+                                ? theme.typography.bodySmallWhite
+                                : theme.typography.bodySmall,
                           )
                         ],
                       )),
@@ -103,21 +139,34 @@ class _PurchaseState extends State<Purchase> {
                           }),
                       color: index == 2
                           ? theme.primary
-                          : theme.primary.withOpacity(0.5),
+                          : theme.primary.withOpacity(0.1),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Combo',
-                            style: theme.typography.bodySmall,
+                            style: index == 2
+                                ? theme.typography.bodySmallWhite
+                                : theme.typography.titleMedium,
                           ),
                           Text(
-                            widget.book.price.toString(),
-                            style: theme.typography.titleSmall,
+                            '${(widget.book.price + 45) + widget.book.price} ETB',
+                            style: index == 2
+                                ? theme.typography.bodySmallWhite
+                                : theme.typography.bodySmall,
                           )
                         ],
                       )),
                 ],
-              )
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+              PrimaryButton(
+                  onPressed: null,
+                  color: theme.primary,
+                  child: Text(
+                    'Purchase',
+                    style: theme.typography.labelMedium,
+                  ))
             ],
           ),
         ),
