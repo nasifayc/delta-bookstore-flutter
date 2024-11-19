@@ -21,7 +21,7 @@ class SecondaryButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         // height: 40.0,
-        width: width ?? MediaQuery.of(context).size.width * 0.5,
+        // width: width ?? MediaQuery.of(context).size.width * 0.5,
         decoration: BoxDecoration(
             // border: Border.all(color: theme.primary, width: 1),
             color: color,

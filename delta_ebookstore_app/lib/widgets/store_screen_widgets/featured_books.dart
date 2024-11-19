@@ -9,7 +9,7 @@ class FeaturedBooks extends StatelessWidget {
   Widget build(BuildContext context) {
     List<BookModel> sampleBooks = BookModel.sampleBooks;
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.28,
+      height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.only(right: 10.0),

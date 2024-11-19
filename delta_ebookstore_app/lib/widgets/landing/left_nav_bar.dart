@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:delta_ebookstore_app/controllers/theme/theme_cubit.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/screens/onboarding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LeftNavBar extends StatelessWidget {
   const LeftNavBar({super.key});
@@ -28,104 +32,72 @@ class LeftNavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.category,
-              color: theme.primaryText,
+              Icons.card_giftcard_outlined,
+              color: theme.primary,
             ),
             title: Text(
-              'Categories',
-              style: theme.typography.bodySmall,
+              'Gifts',
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {},
           ),
           ListTile(
             leading: Icon(
-              Icons.favorite,
-              color: theme.primaryText,
+              Icons.favorite_outline_rounded,
+              color: theme.primary,
             ),
             title: Text(
               'Wishlist',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {},
           ),
-          // ListTile(
-          //   leading: Icon(
-          //     Icons.library_books,
-          //     color: theme.primaryText,
-          //   ),
-          //   title: Text(
-          //     'My Library',
-          //     style: theme.typography.bodySmall,
-          //   ),
-          //   onTap: () {
-          //
-          //   },
-          // ),
           ListTile(
             leading: Icon(
               Icons.download,
-              color: theme.primaryText,
+              color: theme.primary,
             ),
             title: Text(
               'Downloads',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {},
           ),
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              color: theme.primaryText,
-            ),
-            title: Text(
-              'Account',
-              style: theme.typography.bodySmall,
-            ),
-            onTap: () {},
-          ),
-          // ListTile(
-          //   leading: Icon(
-          //     Icons.history,
-          //     color: theme.primaryText,
-          //   ),
-          //   title: Text(
-          //     'Orders',
-          //     style: theme.typography.bodySmall,
-          //   ),
-          //   onTap: () {
-          //
-          //   },
-          // ),
           ListTile(
             leading: Icon(
               Icons.wb_sunny,
-              color: theme.primaryText,
+              color: theme.primary,
             ),
             title: Text(
               'Light theme',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
-            onTap: () {},
+            onTap: () {
+              final themeCubit = context.read<ThemeCubit>();
+              final isDarkMode = themeCubit.state == ThemeMode.dark;
+              log(isDarkMode.toString()); // Access state
+              themeCubit.toggleTheme(!isDarkMode); // Toggle the theme
+            },
           ),
           ListTile(
             leading: Icon(
               Icons.settings,
-              color: theme.primaryText,
+              color: theme.primary,
             ),
             title: Text(
               'Settings',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {},
           ),
           ListTile(
             leading: Icon(
               Icons.info,
-              color: theme.primaryText,
+              color: theme.primary,
             ),
             title: Text(
               'About Us',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {},
           ),
@@ -133,11 +105,11 @@ class LeftNavBar extends StatelessWidget {
           ListTile(
             leading: Icon(
               Icons.logout,
-              color: theme.primaryText,
+              color: theme.primary,
             ),
             title: Text(
               'Logout',
-              style: theme.typography.bodySmall,
+              style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {
               Navigator.of(context).pushAndRemoveUntil(
