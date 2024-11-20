@@ -2,59 +2,54 @@ import 'package:equatable/equatable.dart';
 
 class UserModel extends Equatable {
   final String id;
-  final String username;
-  final String? password;
+  final String name;
   final String email;
   final String phone;
-  final bool? isAdmin;
-  final List<String>? wishlistBooks;
-  final List<String>? purchasedBooks;
+  final String? password;
+  final String? profilePicture;
+  final String? username;
 
   const UserModel({
     required this.id,
-    required this.username,
+    required this.name,
     this.password,
     required this.email,
     required this.phone,
-    this.isAdmin,
-    this.purchasedBooks,
-    this.wishlistBooks,
+    this.profilePicture,
+    this.username,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json["id"],
-      username: json["username"],
+      id: json["_id"],
+      name: json["name"],
       email: json["email"],
       phone: json["phone"],
-      isAdmin: json["isAdmin"],
-      purchasedBooks: List<String>.from(json["purchasedBooks"] ?? []),
-      wishlistBooks: List<String>.from(json["wishlistBooks"] ?? []),
+      profilePicture: json["profilePicture"],
+      username: json["username"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "username": username,
+      "name": name,
       "password": password,
       "email": email,
       "phone": phone,
-      "isAdmin": isAdmin,
-      "purchasedBooks": purchasedBooks ?? [],
-      "wishlistBooks": wishlistBooks ?? [],
+      "profilePicture": profilePicture,
+      "username": username,
     };
   }
 
   @override
   List<Object?> get props => [
         id,
-        username,
+        name,
         password,
         email,
         phone,
-        isAdmin,
-        purchasedBooks,
-        wishlistBooks,
+        profilePicture,
+        username,
       ];
 }
