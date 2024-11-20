@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class UserModel extends Equatable {
   final String id;
   final String name;
-  final String email;
-  final String phone;
+  final String? email;
+  final String? phone;
   final String? password;
   final String? profilePicture;
   final String? username;

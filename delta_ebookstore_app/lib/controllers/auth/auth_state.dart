@@ -8,6 +8,16 @@ abstract class AuthState extends Equatable {
 
 final class AuthInitial extends AuthState {}
 
+final class OtpPending extends AuthState {
+  final String phoneOrEmail;
+  final bool signedUpwithPhone;
+
+  OtpPending({required this.phoneOrEmail, required this.signedUpwithPhone});
+
+  @override
+  List<Object> get props => [phoneOrEmail];
+}
+
 final class Authenticating extends AuthState {}
 
 final class Authenticated extends AuthState {
