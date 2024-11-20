@@ -17,7 +17,20 @@ class _SignupFromState extends State<SignupFrom> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
+  bool _isPhoneSelected = true;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +57,74 @@ class _SignupFromState extends State<SignupFrom> {
                 ),
                 Text(
                   "Enter your details below",
-                  style: theme.typography.titleSmall,
+                  style: theme.typography.titleSmall
+                      .copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
+                ),
+                // Selector for Phone or Email
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    PrimaryButton(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        onPressed: () => setState(() {
+                              _isPhoneSelected = true;
+                            }),
+                        color: _isPhoneSelected
+                            ? theme.primary
+                            : theme.primary.withOpacity(0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.phone,
+                              size: 15,
+                              color: _isPhoneSelected
+                                  ? theme.secondary
+                                  : theme.primary,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Phone',
+                              style: _isPhoneSelected
+                                  ? theme.typography.bodySmallWhite
+                                  : theme.typography.titleMedium,
+                            ),
+                          ],
+                        )),
+                    PrimaryButton(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        onPressed: () => setState(() {
+                              _isPhoneSelected = false;
+                            }),
+                        color: !_isPhoneSelected
+                            ? theme.primary
+                            : theme.primary.withOpacity(0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.email_outlined,
+                              size: 15,
+                              color: !_isPhoneSelected
+                                  ? theme.secondary
+                                  : theme.primary,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Email',
+                              style: !_isPhoneSelected
+                                  ? theme.typography.bodySmallWhite
+                                  : theme.typography.titleMedium,
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Row(
                   children: [
@@ -56,7 +133,8 @@ class _SignupFromState extends State<SignupFrom> {
                         _usernameController,
                         Text(
                           'Username',
-                          style: theme.typography.titleSmall,
+                          style: theme.typography.titleSmall
+                              .copyWith(fontWeight: FontWeight.normal),
                         ),
                         prefixIcon: const Icon(Icons.person),
                         validator: (value) {
@@ -72,48 +150,50 @@ class _SignupFromState extends State<SignupFrom> {
                       width: 10,
                     ),
                     Expanded(
-                      child: formComponents.buildNormalTextField(
-                        _emailController,
-                        Text(
-                          'Email',
-                          style: theme.typography.titleSmall,
-                        ),
-                        prefixIcon: const Icon(Icons.email),
-                        validator: (value) {
-                          final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                          if (value == null || value.isEmpty) {
-                            return 'email is required!';
-                          }
+                      child: _isPhoneSelected
+                          ? formComponents.buildNormalTextField(
+                              _phoneController,
+                              Text(
+                                "Phone",
+                                style: theme.typography.titleSmall
+                                    .copyWith(fontWeight: FontWeight.normal),
+                              ),
+                              prefixIcon: const Icon(Icons.phone),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'phone is required!';
+                                }
 
-                          // Validate email format
-                          if (!emailRegex
-                              .hasMatch(_emailController.text.trim())) {
-                            return 'Invalid email format.';
-                          }
-                          return null;
-                        },
-                      ),
+                                return null;
+                              },
+                            )
+                          : formComponents.buildNormalTextField(
+                              _emailController,
+                              Text(
+                                'Email',
+                                style: theme.typography.titleSmall
+                                    .copyWith(fontWeight: FontWeight.normal),
+                              ),
+                              prefixIcon: const Icon(Icons.email),
+                              validator: (value) {
+                                final emailRegex =
+                                    RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                                if (value == null || value.isEmpty) {
+                                  return 'email is required!';
+                                }
+
+                                // Validate email format
+                                if (!emailRegex
+                                    .hasMatch(_emailController.text.trim())) {
+                                  return 'Invalid email format.';
+                                }
+                                return null;
+                              },
+                            ), // Dynamically show Email or Phone input
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                formComponents.buildNormalTextField(
-                  _phoneController,
-                  Text(
-                    "Phone",
-                    style: theme.typography.titleSmall,
-                  ),
-                  prefixIcon: const Icon(Icons.phone),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'phone is required!';
-                    }
 
-                    return null;
-                  },
-                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -121,7 +201,8 @@ class _SignupFromState extends State<SignupFrom> {
                   _passwordController,
                   Text(
                     'Password',
-                    style: theme.typography.titleSmall,
+                    style: theme.typography.titleSmall
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   validator: (value) {
@@ -139,25 +220,51 @@ class _SignupFromState extends State<SignupFrom> {
                   },
                 ),
                 const SizedBox(
+                  height: 10,
+                ),
+                formComponents.buildPasswordField(
+                  _confirmController,
+                  Text(
+                    'Confirm',
+                    style: theme.typography.titleSmall
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  prefixIcon: const Icon(Icons.lock),
+                  validator: (value) {
+                    final passwordRegex =
+                        RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                    if (value == null || value.isEmpty) {
+                      return 'confirm password!';
+                    }
+
+                    if (!passwordRegex
+                        .hasMatch(_passwordController.text.trim())) {
+                      return 'Password must be at least 8 characters long and contain both letters and numbers.';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
                   height: 20,
                 ),
                 PrimaryButton(
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text("Data Submited successfuly"),
-                            backgroundColor: theme.primary,
-                          ),
-                        );
-                        Navigator.of(context).pushNamed('/otp');
-                      }
-                    },
-                    color: theme.primary,
-                    child: Text(
-                      'Sign Up',
-                      style: theme.typography.bodyMediumWhite,
-                    )),
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text("Data Submitted successfully"),
+                          backgroundColor: theme.primary,
+                        ),
+                      );
+                      Navigator.of(context).pushNamed('/otp');
+                    }
+                  },
+                  color: theme.primary,
+                  child: Text(
+                    'Sign Up',
+                    style: theme.typography.bodyMediumWhite,
+                  ),
+                ),
                 const SizedBox(
                   height: 5,
                 ),

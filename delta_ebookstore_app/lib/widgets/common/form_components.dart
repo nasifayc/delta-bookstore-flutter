@@ -236,7 +236,7 @@ class FormComponents {
             suffixIcon: IconButton(
               icon: Icon(
                 obscureText ? Icons.visibility : Icons.visibility_off,
-                color: theme.secondary,
+                color: theme.primary,
               ),
               onPressed: () {
                 setState(() {
