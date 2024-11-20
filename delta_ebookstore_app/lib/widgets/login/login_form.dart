@@ -14,8 +14,15 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _userController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,21 +49,23 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 Text(
                   "Enter your details below",
-                  style: theme.typography.titleSmall,
+                  style: theme.typography.titleSmall
+                      .copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 formComponents.buildNormalTextField(
-                  _emailController,
+                  _userController,
                   Text(
-                    'Email',
-                    style: theme.typography.titleSmall,
+                    'Email/Phone',
+                    style: theme.typography.titleSmall
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: const Icon(Icons.person_2_rounded),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'username is required!';
+                      return 'email/phone number is required!';
                     }
 
                     return null;
@@ -69,7 +78,8 @@ class _LoginFormState extends State<LoginForm> {
                   _passwordController,
                   Text(
                     'Password',
-                    style: theme.typography.titleSmall,
+                    style: theme.typography.titleSmall
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   validator: (value) {
@@ -86,18 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                 PrimaryButton(
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
-                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //   content: const Text("Welcome!"),
-                        //   backgroundColor: theme.primary,
-                        // ));
-
                         Navigator.of(context).pushNamed('/otp');
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //   MaterialPageRoute(
-                        //       builder: (context) =>
-                        //           const LandingPage()), // Your main screen widget
-                        //   (route) => false,
-                        // );
                       }
                     },
                     color: theme.primary,

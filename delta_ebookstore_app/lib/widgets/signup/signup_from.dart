@@ -1,9 +1,12 @@
+import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/google_auth_button.dart';
 import 'package:delta_ebookstore_app/widgets/common/or_divider.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupFrom extends StatefulWidget {
   const SignupFrom({super.key});
@@ -247,23 +250,37 @@ class _SignupFromState extends State<SignupFrom> {
                 const SizedBox(
                   height: 20,
                 ),
-                PrimaryButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text("Data Submitted successfully"),
-                          backgroundColor: theme.primary,
-                        ),
-                      );
-                      Navigator.of(context).pushNamed('/otp');
-                    }
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return PrimaryButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          if (_isPhoneSelected) {
+                            context.read<AuthCubit>().signUpPhone(
+                                _usernameController.text.trim(),
+                                _phoneController.text.trim(),
+                                _passwordController.text.trim(),
+                                _confirmController.text.trim());
+                          } else {
+                            context.read<AuthCubit>().signUpEmail(
+                                _usernameController.text.trim(),
+                                _emailController.text.trim(),
+                                _passwordController.text.trim(),
+                                _confirmController.text.trim());
+                          }
+                        }
+                      },
+                      color: theme.primary,
+                      child: state is Authenticating
+                          ? CircularProgressIndicator(
+                              color: theme.primary,
+                            )
+                          : Text(
+                              'Sign Up',
+                              style: theme.typography.bodyMediumWhite,
+                            ),
+                    );
                   },
-                  color: theme.primary,
-                  child: Text(
-                    'Sign Up',
-                    style: theme.typography.bodyMediumWhite,
-                  ),
                 ),
                 const SizedBox(
                   height: 5,
