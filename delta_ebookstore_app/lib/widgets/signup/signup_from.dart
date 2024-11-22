@@ -209,16 +209,16 @@ class _SignupFromState extends State<SignupFrom> {
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   validator: (value) {
-                    final passwordRegex =
-                        RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                    // final passwordRegex =
+                    //     RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
                     if (value == null || value.isEmpty) {
                       return 'password is required!';
                     }
 
-                    if (!passwordRegex
-                        .hasMatch(_passwordController.text.trim())) {
-                      return 'Password must be at least 8 characters long and contain both letters and numbers.';
-                    }
+                    // if (!passwordRegex
+                    //     .hasMatch(_passwordController.text.trim())) {
+                    //   return 'Password must be at least 8 characters long and contain both letters and numbers.';
+                    // }
                     return null;
                   },
                 ),
@@ -234,16 +234,16 @@ class _SignupFromState extends State<SignupFrom> {
                   ),
                   prefixIcon: const Icon(Icons.lock),
                   validator: (value) {
-                    final passwordRegex =
-                        RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                    // final passwordRegex =
+                    //     RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
                     if (value == null || value.isEmpty) {
                       return 'confirm password!';
                     }
 
-                    if (!passwordRegex
-                        .hasMatch(_passwordController.text.trim())) {
-                      return 'Password must be at least 8 characters long and contain both letters and numbers.';
-                    }
+                    // if (!passwordRegex
+                    //     .hasMatch(_passwordController.text.trim())) {
+                    //   return 'Password must be at least 8 characters long and contain both letters and numbers.';
+                    // }
                     return null;
                   },
                 ),
@@ -273,7 +273,7 @@ class _SignupFromState extends State<SignupFrom> {
                       color: theme.primary,
                       child: state is Authenticating
                           ? CircularProgressIndicator(
-                              color: theme.primary,
+                              color: theme.secondary,
                             )
                           : Text(
                               'Sign Up',

@@ -55,14 +55,22 @@ class PinForm extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  // SizedBox(
-                  //   width: MediaQuery.of(context).size.width * 0.7,
-                  //   child: Text(
-                  //     'We have sent the verification code to your $otpTyp: $emailOrPhone',
-                  //     style: theme.typography.titleSmall,
-                  //     maxLines: 10,
-                  //   ),
-                  // ),
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      if (state is OtpPending) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            'We have sent the verification code to your ${state.signedUpwithPhone ? 'phone number' : 'email'}: ${state.phoneOrEmail}',
+                            style: theme.typography.titleSmall,
+                            maxLines: 10,
+                          ),
+                        );
+                      }
+                      return Text('Something went wrong!',
+                          style: theme.typography.headlineMedium);
+                    },
+                  ),
                   const SizedBox(height: 50),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/models/user/user_model.dart';
@@ -29,12 +30,16 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signUpEmail(
       String name, String email, String password, String confirmPwd) async {
+    log('Email Sign up: $email');
     emit(Authenticating());
     try {
       http.Response response =
           await authService.signupEmail(name, email, password, confirmPwd);
+      final result = jsonDecode(response.body);
       if (response.statusCode == 201) {
         emit(OtpPending(phoneOrEmail: email, signedUpwithPhone: false));
+      } else {
+        emit(AuthFailed(errorMessage: result["error"]));
       }
     } catch (e) {
       emit(AuthFailed(errorMessage: e.toString()));
@@ -43,6 +48,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signUpPhone(
       String name, String phone, String password, String confirmPwd) async {
+    log('Phone Sign up: $phone');
     emit(Authenticating());
     try {
       http.Response response =
