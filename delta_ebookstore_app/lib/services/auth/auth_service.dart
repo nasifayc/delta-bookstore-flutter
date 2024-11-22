@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/services/manager/login_manager.dart';
@@ -14,11 +15,13 @@ class AuthService {
       "confirmPwd": confirmPwd,
       "registerByPhone": false
     };
+    log("--------------- Reached Here -------------------");
     final response = await http.post(Uri.parse(ApiUrl.signupUrl),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(requestBody));
+    log(response.body.toString());
 
     return response;
   }
@@ -32,11 +35,13 @@ class AuthService {
       "confirmPwd": confirmPwd,
       "registerByPhone": true
     };
+    log("--------------- Reached Here -------------------");
     final response = await http.post(Uri.parse(ApiUrl.signupUrl),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(requestBody));
+    log(jsonDecode(response.body).toString());
 
     return response;
   }
@@ -47,6 +52,7 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode({'emailOrPhone': emailOrPhone, 'password': password}));
+    log(jsonDecode(response.body).toString());
 
     return response;
   }

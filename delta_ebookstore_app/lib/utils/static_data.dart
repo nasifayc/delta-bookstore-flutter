@@ -1,4 +1,21 @@
+import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+
 class StaticData {
+  static Shimmer getShimmerEffect(AppTheme theme, {double height = 100}) {
+    return Shimmer.fromColors(
+      baseColor: theme.primary,
+      highlightColor: Colors.white,
+      child: Container(
+        width: double.infinity,
+        height: height,
+        decoration: BoxDecoration(
+            color: theme.tertiary, borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+
   static List<Map<String, dynamic>> getbook() {
     return [
       {

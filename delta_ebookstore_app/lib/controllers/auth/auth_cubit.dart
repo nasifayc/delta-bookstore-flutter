@@ -19,7 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
       final result = jsonDecode(response.body);
       if (response.statusCode == 201) {
         await LoginManager.saveUserToken(result["token"]);
-        emit(Authenticated(user: result["appUser"]));
+        emit(Authenticated(user: UserModel.fromJson(result["appUser"])));
       } else {
         emit(AuthFailed(errorMessage: result['error']));
       }
@@ -42,6 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthFailed(errorMessage: result["error"]));
       }
     } catch (e) {
+      // log(e.toString());
       emit(AuthFailed(errorMessage: e.toString()));
     }
   }
@@ -53,8 +54,11 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       http.Response response =
           await authService.signupPhone(name, phone, password, confirmPwd);
+      final result = jsonDecode(response.body);
       if (response.statusCode == 201) {
         emit(OtpPending(phoneOrEmail: phone, signedUpwithPhone: true));
+      } else {
+        emit(AuthFailed(errorMessage: result["error"]));
       }
     } catch (e) {
       emit(AuthFailed(errorMessage: e.toString()));

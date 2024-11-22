@@ -179,17 +179,17 @@ class _SignupFromState extends State<SignupFrom> {
                               ),
                               prefixIcon: const Icon(Icons.email),
                               validator: (value) {
-                                final emailRegex =
-                                    RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                                // final emailRegex =
+                                //     RegExp(r'^[^@]+@[^@]+\.[^@]+');
                                 if (value == null || value.isEmpty) {
                                   return 'email is required!';
                                 }
 
                                 // Validate email format
-                                if (!emailRegex
-                                    .hasMatch(_emailController.text.trim())) {
-                                  return 'Invalid email format.';
-                                }
+                                // if (!emailRegex
+                                //     .hasMatch(_emailController.text.trim())) {
+                                //   return 'Invalid email format.';
+                                // }
                                 return null;
                               },
                             ), // Dynamically show Email or Phone input

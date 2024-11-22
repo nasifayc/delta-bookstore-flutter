@@ -1,9 +1,12 @@
+import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/google_auth_button.dart';
 import 'package:delta_ebookstore_app/widgets/common/or_divider.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -93,17 +96,26 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(
                   height: 20,
                 ),
-                PrimaryButton(
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        Navigator.of(context).pushNamed('/otp');
-                      }
-                    },
-                    color: theme.primary,
-                    child: Text(
-                      'Login',
-                      style: theme.typography.bodyMediumWhite,
-                    )),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return PrimaryButton(
+                        onPressed: () {
+                          context.read<AuthCubit>().signIn(
+                                _userController.text.trim(),
+                                _passwordController.text.trim(),
+                              );
+                        },
+                        color: theme.primary,
+                        child: state is Authenticating
+                            ? CircularProgressIndicator(
+                                color: theme.secondary,
+                              )
+                            : Text(
+                                'Login',
+                                style: theme.typography.bodyMediumWhite,
+                              ));
+                  },
+                ),
                 const SizedBox(
                   height: 5,
                 ),

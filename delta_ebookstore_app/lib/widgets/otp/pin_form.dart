@@ -67,8 +67,7 @@ class PinForm extends StatelessWidget {
                           ),
                         );
                       }
-                      return Text('Something went wrong!',
-                          style: theme.typography.headlineMedium);
+                      return const SizedBox.shrink();
                     },
                   ),
                   const SizedBox(height: 50),
@@ -101,7 +100,7 @@ class PinForm extends StatelessWidget {
                         color: theme.primary,
                         child: state is Authenticating
                             ? CircularProgressIndicator(
-                                color: theme.primary,
+                                color: theme.secondary,
                               )
                             : Text(
                                 'Verify',

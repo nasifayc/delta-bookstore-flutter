@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/controllers/theme/theme_cubit.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/screens/onboarding.dart';
@@ -17,22 +19,34 @@ class LeftNavBar extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(0),
         children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(
-              "Nasifay Chala",
-              style: theme.typography.headlineMedium,
-            ),
-            accountEmail: Text(
-              "nasifayc11@gmail.com",
-              style: theme.typography.headlineSmall,
-            ),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: theme.tertiary,
-              child: ClipOval(
-                child: Image.asset('assets/images/boy.png'),
-              ),
-            ),
-            decoration: BoxDecoration(color: theme.primaryBackground),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is Authenticated) {
+                return UserAccountsDrawerHeader(
+                  accountName: Text(
+                    state.user.name,
+                    style: theme.typography.headlineMedium,
+                  ),
+                  accountEmail: Text(
+                    state.user.phone ?? state.user.email!,
+                    style: theme.typography.headlineSmall,
+                  ),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: theme.tertiary,
+                    child: ClipOval(
+                      child: Image.asset('assets/images/boy.png'),
+                    ),
+                  ),
+                  decoration: BoxDecoration(color: theme.primaryBackground),
+                );
+              }
+              return Center(
+                child: Text(
+                  'Sign In Required',
+                  style: theme.typography.headlineSmall,
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
