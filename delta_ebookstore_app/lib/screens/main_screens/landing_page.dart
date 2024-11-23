@@ -59,9 +59,14 @@ class LandingPage extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Icon(
-                  Icons.search,
-                  color: appTheme.primary,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/search');
+                  },
+                  child: Icon(
+                    Icons.search,
+                    color: appTheme.primary,
+                  ),
                 ),
               )
             ],

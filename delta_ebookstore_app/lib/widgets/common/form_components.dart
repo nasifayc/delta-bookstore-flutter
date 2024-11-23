@@ -20,7 +20,7 @@ class FormComponents {
           color: theme.primary,
         ),
         filled: true,
-        fillColor: theme.secondary,
+        fillColor: theme.primary.withOpacity(0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide.none,
