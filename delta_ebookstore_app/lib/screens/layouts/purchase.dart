@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/models/book/book_model.dart';
 import 'package:delta_ebookstore_app/widgets/book_detail/cover_image.dart';
@@ -15,6 +17,7 @@ class Purchase extends StatefulWidget {
 }
 
 class _PurchaseState extends State<Purchase> {
+  bool _isSantimPay = true;
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -159,7 +162,58 @@ class _PurchaseState extends State<Purchase> {
                       )),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Payment',
+                style: theme.typography.titleMedium,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ListTile(
+                leading: Image.network(
+                  "https://santimpay.com/assets/SP%20logo-DCfy78Vx.png",
+                  height: 50,
+                  width: 50,
+                ),
+                title: Text(
+                  'Santim pay',
+                  style: theme.typography.bodyMedium,
+                ),
+                trailing: Switch(
+                    inactiveThumbColor: theme.tertiary,
+                    inactiveTrackColor: theme.tertiary.withOpacity(0.5),
+                    value: _isSantimPay,
+                    onChanged: (value) => setState(() {
+                          _isSantimPay = value;
+                          log(_isSantimPay.toString());
+                        })),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              ListTile(
+                leading: Image.network(
+                  "https://avatars.githubusercontent.com/u/72302147?s=200&v=4",
+                  height: 50,
+                  width: 50,
+                ),
+                title: Text(
+                  'Chapa',
+                  style: theme.typography.bodyMedium,
+                ),
+                trailing: Switch(
+                    inactiveThumbColor: theme.tertiary,
+                    inactiveTrackColor: theme.tertiary.withOpacity(0.5),
+                    value: !_isSantimPay,
+                    onChanged: (value) => setState(() {
+                          _isSantimPay = !value;
+                          log(_isSantimPay.toString());
+                        })),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
               PrimaryButton(
                   onPressed: null,
                   color: theme.primary,
