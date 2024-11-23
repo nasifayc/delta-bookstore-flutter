@@ -56,7 +56,9 @@ class _FilterCardState extends State<FilterCard> {
                 ),
                 child: Text(
                   filter,
-                  style: theme.typography.titleSmall,
+                  style: theme.typography.titleSmall.copyWith(
+                      color: theme.primary.withOpacity(0.7),
+                      fontWeight: FontWeight.normal),
                 ),
               );
             }),

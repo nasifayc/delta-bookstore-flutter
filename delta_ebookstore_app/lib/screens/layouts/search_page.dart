@@ -81,7 +81,32 @@ class SearchPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const FilterCard()
+              const FilterCard(),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Result',
+                style: theme.typography.headlineSmall,
+              ),
+              const SizedBox(
+                height: 60,
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/empty-box.png',
+                      height: 100,
+                      width: 100,
+                    ),
+                    Text(
+                      'No Data',
+                      style: theme.typography.bodySmall,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
