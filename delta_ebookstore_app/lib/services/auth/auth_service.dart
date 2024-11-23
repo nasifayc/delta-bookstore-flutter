@@ -57,8 +57,12 @@ class AuthService {
     return response;
   }
 
-  Future<http.Response> verifyToken() async {
+  Future<http.Response?> verifyToken() async {
     String? token = await LoginManager.getUserToken();
+    if (token == null) {
+      return null;
+    }
+
     final response = await http
         .get(Uri.parse(ApiUrl.verifyTokenUrl), headers: <String, String>{
       'Authorization': 'Bearer $token',
@@ -76,5 +80,9 @@ class AuthService {
         body: jsonEncode(
             {'emailOrPhone': emailOrPhone, 'otp': otp, 'otpType': otpType}));
     return response;
+  }
+
+  Future<void> logout() async {
+    await LoginManager.removeToken();
   }
 }

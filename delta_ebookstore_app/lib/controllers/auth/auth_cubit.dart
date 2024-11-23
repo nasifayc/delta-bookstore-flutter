@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthService authService;
-  AuthCubit({required this.authService}) : super(AuthInitial());
+  AuthCubit({required this.authService}) : super(AppStarted());
 
   Future<void> signIn(String emailOrPhone, String password) async {
     emit(Authenticating());
@@ -69,7 +69,11 @@ class AuthCubit extends Cubit<AuthState> {
     emit(Authenticating());
 
     try {
-      http.Response response = await authService.verifyToken();
+      http.Response? response = await authService.verifyToken();
+      if (response == null) {
+        emit(AuthInitial());
+        return;
+      }
       final result = jsonDecode(response.body);
       if (response.statusCode == 200) {
         emit(Authenticated(user: UserModel.fromJson(result["user"])));
@@ -94,6 +98,15 @@ class AuthCubit extends Cubit<AuthState> {
       } else {
         emit(AuthFailed(errorMessage: result['error']));
       }
+    } catch (e) {
+      emit(AuthFailed(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      await authService.logout();
+      emit(AuthInitial());
     } catch (e) {
       emit(AuthFailed(errorMessage: e.toString()));
     }

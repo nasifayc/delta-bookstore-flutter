@@ -1,5 +1,6 @@
 import 'package:delta_ebookstore_app/models/user/user_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class AuthState extends Equatable {
   @override
@@ -7,6 +8,8 @@ abstract class AuthState extends Equatable {
 }
 
 final class AuthInitial extends AuthState {}
+
+final class AppStarted extends AuthState {}
 
 final class OtpPending extends AuthState {
   final String phoneOrEmail;

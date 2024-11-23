@@ -4,7 +4,6 @@ import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/controllers/theme/theme_cubit.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
-import 'package:delta_ebookstore_app/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,7 +28,8 @@ class LeftNavBar extends StatelessWidget {
                   ),
                   accountEmail: Text(
                     state.user.phone ?? state.user.email!,
-                    style: theme.typography.headlineSmall,
+                    style: theme.typography.titleSmall
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: theme.tertiary,
@@ -157,12 +157,13 @@ class LeftNavBar extends StatelessWidget {
               style: theme.typography.headlineSmall.copyWith(fontSize: 16),
             ),
             onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const Onboarding()), // Your main screen widget
-                (route) => false,
-              );
+              context.read<AuthCubit>().logout();
+              // Navigator.of(context).pushAndRemoveUntil(
+              //   MaterialPageRoute(
+              //       builder: (context) =>
+              //           const Onboarding()), // Your main screen widget
+              //   (route) => false,
+              // );
             },
           ),
         ],

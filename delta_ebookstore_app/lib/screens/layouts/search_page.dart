@@ -4,7 +4,6 @@ import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:delta_ebookstore_app/widgets/search/add_filter_sheet.dart';
 import 'package:delta_ebookstore_app/widgets/search/filter_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
