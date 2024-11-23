@@ -19,7 +19,7 @@ class BookPreference extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: 50, // Adjust height as needed
+      height: 35, // Adjust height as needed
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,

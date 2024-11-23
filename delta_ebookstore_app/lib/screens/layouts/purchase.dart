@@ -5,7 +5,6 @@ import 'package:delta_ebookstore_app/models/book/book_model.dart';
 import 'package:delta_ebookstore_app/widgets/book_detail/cover_image.dart';
 import 'package:delta_ebookstore_app/widgets/book_detail/cover_image_center.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
-import 'package:delta_ebookstore_app/widgets/common/secondary_button.dart';
 import 'package:flutter/material.dart';
 
 class Purchase extends StatefulWidget {
@@ -115,8 +114,8 @@ class _PurchaseState extends State<Purchase> {
                                 Icons.headphones,
                                 size: 15,
                                 color: index == 1
-                                    ? theme.primaryBackground
-                                    : theme.secondary,
+                                    ? theme.secondary
+                                    : theme.primary,
                               ),
                               const SizedBox(width: 5),
                               Text(

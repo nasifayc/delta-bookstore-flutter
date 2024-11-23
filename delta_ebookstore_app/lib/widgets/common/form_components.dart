@@ -10,24 +10,29 @@ class FormComponents {
   Widget buildSearchBar(
       TextEditingController controller, String hintText, bool isReadOnly,
       {String? Function(String?)? validator, void Function()? onTap}) {
-    return TextFormField(
-      controller: controller,
-      readOnly: isReadOnly,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: Icon(
-          Icons.search,
-          color: theme.primary,
+    return SizedBox(
+      height: 45,
+      child: TextFormField(
+        controller: controller,
+        readOnly: isReadOnly,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: theme.typography.titleSmall
+              .copyWith(fontWeight: FontWeight.normal),
+          prefixIcon: Icon(
+            Icons.search,
+            color: theme.primary.withOpacity(0.8),
+          ),
+          filled: true,
+          fillColor: theme.primary.withOpacity(0.08),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: BorderSide.none,
+          ),
         ),
-        filled: true,
-        fillColor: theme.primary.withOpacity(0.1),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide.none,
-        ),
+        validator: validator,
+        onTap: onTap,
       ),
-      validator: validator,
-      onTap: onTap,
     );
   }
 

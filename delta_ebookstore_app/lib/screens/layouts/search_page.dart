@@ -43,11 +43,13 @@ class SearchPage extends StatelessWidget {
                 children: [
                   PrimaryButton(
                       width: 50,
+                      height: 40,
                       onPressed: () => Navigator.of(context).pop(),
                       color: theme.primary,
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         color: theme.secondary,
+                        size: 20,
                       )),
                   const SizedBox(
                     width: 10,
@@ -61,10 +63,12 @@ class SearchPage extends StatelessWidget {
                   ),
                   PrimaryButton(
                     width: 50,
+                    height: 40,
                     onPressed: showFilterPage,
                     color: theme.primary,
                     child: Icon(
                       Icons.filter_list,
+                      size: 20,
                       color: theme.secondary,
                     ),
                   ),

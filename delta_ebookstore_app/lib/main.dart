@@ -1,4 +1,6 @@
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/bottom_nav/bottom_nav_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/search/search_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/theme/theme_cubit.dart';
 import 'package:delta_ebookstore_app/core/main_app.dart';
 import 'package:delta_ebookstore_app/services/auth/auth_service.dart';
@@ -14,6 +16,8 @@ void main() async {
         create: (context) => AuthCubit(authService: AuthService()),
       ),
       BlocProvider(create: (context) => ThemeCubit()),
+      BlocProvider(create: (context) => BottomNavCubit()),
+        BlocProvider(create: (context) => SearchCubit()),
     ],
     child: const MainApp(),
   ));
