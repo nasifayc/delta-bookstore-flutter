@@ -172,10 +172,12 @@ class _PurchaseState extends State<Purchase> {
                 height: 20,
               ),
               ListTile(
-                leading: Image.network(
-                  "https://santimpay.com/assets/SP%20logo-DCfy78Vx.png",
-                  height: 50,
-                  width: 50,
+                leading: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset(
+                    "assets/images/santim_pay.png",
+                  ),
                 ),
                 title: Text(
                   'Santim pay',
@@ -194,10 +196,12 @@ class _PurchaseState extends State<Purchase> {
                 height: 5,
               ),
               ListTile(
-                leading: Image.network(
-                  "https://avatars.githubusercontent.com/u/72302147?s=200&v=4",
-                  height: 50,
-                  width: 50,
+                leading: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset(
+                    "assets/images/chapa.jpg",
+                  ),
                 ),
                 title: Text(
                   'Chapa',

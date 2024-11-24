@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/models/book/book_model.dart';
 import 'package:delta_ebookstore_app/widgets/book_detail/book_info.dart';

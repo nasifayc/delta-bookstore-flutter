@@ -50,6 +50,7 @@ class SettingPage extends StatelessWidget {
                   color: theme.primary,
                 ),
                 onTap: () {
+                  Navigator.of(context).pushNamed('/account');
                   // Navigate to Account Settings screen
                 },
               ),
