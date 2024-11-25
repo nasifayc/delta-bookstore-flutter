@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/controllers/theme/theme_cubit.dart';
+import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,15 @@ class LeftNavBar extends StatelessWidget {
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: theme.tertiary,
                     child: ClipOval(
-                      child: Image.asset('assets/images/boy.png'),
+                      child: state.user.profilePicture == null
+                          ? Image.asset(
+                              'assets/images/boy.png',
+                              fit: BoxFit.cover, // Optional: Adjust fit
+                            )
+                          : Image.network(
+                              '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}',
+                              fit: BoxFit.cover, // Optional: Adjust fit
+                            ),
                     ),
                   ),
                   decoration: BoxDecoration(color: theme.primaryBackground),

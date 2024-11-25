@@ -25,7 +25,7 @@ class UserModel extends Equatable {
       name: json["name"],
       email: json["email"],
       phone: json["phone"],
-      profilePicture: json["profilePicture"],
+      profilePicture: json["profile_picture"],
       username: json["username"],
     );
   }

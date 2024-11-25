@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
@@ -24,10 +26,12 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthFailed) {
+              log(state.errorMessage);
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text(state.errorMessage)));
             }
             if (state is Authenticated) {
+              // log('----------------------- ${state.user.profilePicture!} --------------------------');
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (context) =>

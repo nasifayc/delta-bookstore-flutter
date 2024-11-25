@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
-import 'package:delta_ebookstore_app/widgets/setting/user_info.dart';
+import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
+import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditAccount extends StatefulWidget {
   const EditAccount({super.key});
@@ -18,23 +22,24 @@ class _EditAccountState extends State<EditAccount> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  File? _selectedImage;
 
   @override
   void initState() {
     super.initState();
-    _initializ();
+    _initialize();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
     _usernameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    super.dispose();
   }
 
-  void _initializ() {
+  void _initialize() {
     final authCubit = context.read<AuthCubit>();
     final authState = authCubit.state;
 
@@ -47,14 +52,26 @@ class _EditAccountState extends State<EditAccount> {
     }
   }
 
+  Future<void> _pickImage() async {
+    ImagePicker picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     AppTheme theme = AppTheme.of(context);
+    FormComponents formComponents = FormComponents(context: context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Edit',
+          'Edit Account',
           style: theme.typography.bodyMedium,
         ),
       ),
@@ -65,71 +82,89 @@ class _EditAccountState extends State<EditAccount> {
             builder: (context, state) {
               if (state is Authenticated) {
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.edit,
-                        color: theme.primary,
-                      ),
-                      title: Text(
-                        'Edit Account',
-                        style: theme.typography.titleSmall
-                            .copyWith(color: theme.primary),
-                      ),
-                      subtitle: Text('username, profile, email, phone',
-                          style: theme.typography.titleSmall.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.normal)),
-                      trailing: Icon(
-                        Icons.arrow_right,
-                        color: theme.primary,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/edit-account');
-                        // Navigate to Account Settings screen
-                      },
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundImage: _selectedImage != null
+                              ? FileImage(_selectedImage!)
+                              : (state.user.profilePicture != null &&
+                                          state.user.profilePicture!.isNotEmpty
+                                      ? NetworkImage(state.user.profilePicture!)
+                                      : const AssetImage(
+                                          'assets/images/boy.png'))
+                                  as ImageProvider<Object>,
+                          backgroundColor: theme.tertiary,
+                        ),
+
+                        // Camera Icon
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: InkWell(
+                            onTap: _pickImage,
+                            child: CircleAvatar(
+                              radius: 18,
+                              backgroundColor: theme.primary,
+                              child: Icon(Icons.camera_alt,
+                                  color: theme.secondary, size: 18),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.security,
-                        color: theme.primary,
+                    const SizedBox(height: 20),
+
+                    // Form Fields
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          formComponents.buildNormalTextField(
+                            _nameController,
+                            Text(
+                              'name',
+                              style: theme.typography.bodySmall,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          formComponents.buildNormalTextField(
+                            _usernameController,
+                            Text(
+                              'username',
+                              style: theme.typography.bodySmall,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          formComponents.buildNormalTextField(
+                            _emailController,
+                            Text(
+                              'email',
+                              style: theme.typography.bodySmall,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          formComponents.buildNormalTextField(
+                            _phoneController,
+                            Text(
+                              'phone',
+                              style: theme.typography.bodySmall,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          PrimaryButton(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              onPressed: null,
+                              color: theme.primary,
+                              child: Text(
+                                'Save Changes',
+                                style: theme.typography.labelSmall,
+                              ))
+                        ],
                       ),
-                      title: Text(
-                        'Change Password',
-                        style: theme.typography.titleSmall
-                            .copyWith(color: theme.primary),
-                      ),
-                      subtitle: Text('reset, change, password',
-                          style: theme.typography.titleSmall.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.normal)),
-                      trailing: Icon(
-                        Icons.arrow_right,
-                        color: theme.primary,
-                      ),
-                      onTap: () {
-                        // Navigate to Account Settings screen
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.delete_sweep_outlined,
-                        color: theme.primary,
-                      ),
-                      title: Text(
-                        'Delete Account',
-                        style: theme.typography.titleSmall
-                            .copyWith(color: theme.primary),
-                      ),
-                      subtitle: Text('Remove your account from this app',
-                          style: theme.typography.titleSmall.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.normal)),
-                      trailing: Icon(
-                        Icons.arrow_right,
-                        color: theme.primary,
-                      ),
-                      onTap: () {
-                        // Navigate to Account Settings screen
-                      },
                     ),
                   ],
                 );

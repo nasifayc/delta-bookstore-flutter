@@ -6,6 +6,7 @@ import 'package:delta_ebookstore_app/screens/layouts/setting/account_page.dart';
 import 'package:delta_ebookstore_app/screens/layouts/login_page.dart';
 import 'package:delta_ebookstore_app/screens/layouts/otp_screen.dart';
 import 'package:delta_ebookstore_app/screens/layouts/search_page.dart';
+import 'package:delta_ebookstore_app/screens/layouts/setting/edit_account.dart';
 import 'package:delta_ebookstore_app/screens/layouts/setting/setting_page.dart';
 import 'package:delta_ebookstore_app/screens/layouts/sign_up_page.dart';
 
@@ -48,6 +49,7 @@ class _MainAppState extends State<MainApp> {
             '/settings': (context) => const SettingPage(),
             '/search': (context) => const SearchPage(),
             '/account': (context) => const AccountPage(),
+            '/edit-account': (context) => const EditAccount(),
           },
           home: const AppNavigator(),
         );

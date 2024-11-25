@@ -1,5 +1,6 @@
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
+import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,12 @@ class UserInfo extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 80,
-                  child: Image.asset("assets/images/boy.png"),
+                  child: state.user.profilePicture == null
+                      ? Image.asset("assets/images/boy.png")
+                      : Image.network(
+                          '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}',
+                          fit: BoxFit.cover, // Optional: Adjust fit
+                        ),
                 ),
               ),
               const SizedBox(
