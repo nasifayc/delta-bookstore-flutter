@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(Authenticating());
     try {
       http.Response response = await authService.signin(emailOrPhone, password);
-      final result = jsonDecode(response.body);
+      final result = await jsonDecode(response.body);
       if (response.statusCode == 201) {
         await LoginManager.saveUserToken(result["token"]);
         emit(Authenticated(user: UserModel.fromJson(result["appUser"])));
@@ -35,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       http.Response response =
           await authService.signupEmail(name, email, password, confirmPwd);
-      final result = jsonDecode(response.body);
+      final result = await jsonDecode(response.body);
       if (response.statusCode == 201) {
         emit(OtpPending(phoneOrEmail: email, signedUpwithPhone: false));
       } else {
@@ -54,7 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       http.Response response =
           await authService.signupPhone(name, phone, password, confirmPwd);
-      final result = jsonDecode(response.body);
+      final result = await jsonDecode(response.body);
       if (response.statusCode == 201) {
         emit(OtpPending(phoneOrEmail: phone, signedUpwithPhone: true));
       } else {
@@ -74,7 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthInitial());
         return;
       }
-      final result = jsonDecode(response.body);
+      final result = await jsonDecode(response.body);
       if (response.statusCode == 200) {
         emit(Authenticated(user: UserModel.fromJson(result["user"])));
       } else {
@@ -91,7 +91,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       http.Response response =
           await authService.validateOtp(emailOrPhone, otp, otpType);
-      final result = jsonDecode(response.body);
+      final result = await jsonDecode(response.body);
       if (response.statusCode == 201) {
         await LoginManager.saveUserToken(result["token"]);
         emit(Authenticated(user: UserModel.fromJson(result["appUser"])));
@@ -101,6 +101,10 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(AuthFailed(errorMessage: e.toString()));
     }
+  }
+
+  void updateUserState(UserModel user) {
+    emit(Authenticated(user: user));
   }
 
   Future<void> logout() async {

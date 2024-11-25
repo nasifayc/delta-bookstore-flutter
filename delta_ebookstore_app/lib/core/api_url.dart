@@ -7,6 +7,7 @@ class ApiUrl {
   static const String validateOtpUrl = "$baseUrl/api/auth/validate-otp";
   static const String changePasswordUrl = "$baseUrl/api/auth/change-my-pwd";
   static const String resetPasswordUrl = "$baseUrl/api/auth/reset-my-pwd";
+  static const String updateProfileUrl = "$baseUrl/api/user/update-profile";
   static const String userProfileImageUrl =
       "$baseUrl/uploads/user-profile-photo/";
 }

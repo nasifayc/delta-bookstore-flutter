@@ -23,7 +23,8 @@ class UserInfo extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle, // Ensures the container is circular
                     image: DecorationImage(
-                      image: state.user.profilePicture == null
+                      image: state.user.profilePicture == null ||
+                              state.user.profilePicture!.isEmpty
                           ? const AssetImage(
                               "assets/images/boy.png") // Placeholder image
                           : NetworkImage(

@@ -1,7 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
+import 'package:delta_ebookstore_app/controllers/user/user_cubit.dart';
+import 'package:delta_ebookstore_app/controllers/user/user_state.dart';
 import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
@@ -76,111 +79,248 @@ class _EditAccountState extends State<EditAccount> {
           style: theme.typography.bodyMedium,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              if (state is Authenticated) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundImage: _selectedImage != null
-                              ? FileImage(_selectedImage!)
-                              : (state.user.profilePicture != null &&
-                                      state.user.profilePicture!.isNotEmpty
-                                  ? NetworkImage(
-                                      '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}')
-                                  : const AssetImage(
-                                      'assets/images/boy.png')) as ImageProvider<
-                                  Object>,
-                          backgroundColor: theme.tertiary,
-                        ),
+      body: BlocListener<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state is UserProfileUpdatedFailed) {
+            log(state.error);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: theme.primaryBackground,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      15.0), // Set border radius for rounded corners
+                ),
+                title: Text(
+                  'Error',
+                  style: theme.typography.headlineSmall
+                      .copyWith(color: theme.error),
+                ),
+                content: Text(
+                  state.error,
+                  style: theme.typography.bodySmall,
+                  maxLines: 10,
+                ),
+                actions: [
+                  PrimaryButton(
+                      width: 100,
+                      onPressed: () => Navigator.of(context).pop(),
+                      color: theme.primary,
+                      child: Text(
+                        'Okay',
+                        style: theme.typography.labelSmall,
+                      )),
+                ],
+              ),
+            );
+          }
 
-                        // Camera Icon
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: InkWell(
-                            onTap: _pickImage,
-                            child: CircleAvatar(
-                              radius: 18,
-                              backgroundColor: theme.primary,
-                              child: Icon(Icons.camera_alt,
-                                  color: theme.secondary, size: 18),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Form Fields
-                    Form(
-                      key: _formKey,
-                      child: Column(
+          if (state is UserProfileUpdatedSucceeded) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: theme.primaryBackground,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      15.0), // Set border radius for rounded corners
+                ),
+                title: Text(
+                  'Success',
+                  style: theme.typography.headlineSmall
+                      .copyWith(color: Colors.green),
+                ),
+                content: Text(
+                  state.successMessage,
+                  style: theme.typography.bodySmall,
+                ),
+                actions: [
+                  PrimaryButton(
+                      width: 100,
+                      onPressed: () => Navigator.of(context).pop(),
+                      color: theme.primary,
+                      child: Text(
+                        'Okay',
+                        style: theme.typography.labelSmall,
+                      )),
+                ],
+              ),
+            );
+          }
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (state is Authenticated) {
+                  String? username = state.user.username;
+                  String? name = state.user.name;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        alignment: Alignment.bottomRight,
                         children: [
-                          formComponents.buildNormalTextField(
-                            _nameController,
-                            Text(
-                              'name',
-                              style: theme.typography.bodySmall,
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundImage: _selectedImage != null
+                                ? FileImage(_selectedImage!)
+                                : (state.user.profilePicture != null &&
+                                        state.user.profilePicture!.isNotEmpty
+                                    ? NetworkImage(
+                                        '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}')
+                                    : const AssetImage(
+                                        'assets/images/boy.png')) as ImageProvider<
+                                    Object>,
+                            backgroundColor: theme.tertiary,
+                          ),
+
+                          // Camera Icon
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: InkWell(
+                              onTap: _pickImage,
+                              child: CircleAvatar(
+                                radius: 18,
+                                backgroundColor: theme.primary,
+                                child: Icon(Icons.camera_alt,
+                                    color: theme.secondary, size: 18),
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          formComponents.buildNormalTextField(
-                            _usernameController,
-                            Text(
-                              'username',
-                              style: theme.typography.bodySmall,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          state.user.phone == null
-                              ? formComponents.buildNormalTextField(
-                                  _emailController,
-                                  isReadOnly: true,
-                                  Text(
-                                    'email',
-                                    style: theme.typography.bodySmall,
-                                  ),
-                                )
-                              : formComponents.buildNormalTextField(
-                                  _phoneController,
-                                  isReadOnly: true,
-                                  Text(
-                                    'phone',
-                                    style: theme.typography.bodySmall,
-                                  ),
-                                ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.1),
-                          PrimaryButton(
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              onPressed: null,
-                              color: theme.primary,
-                              child: Text(
-                                'Save Changes',
-                                style: theme.typography.labelSmall,
-                              ))
                         ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+
+                      // Form Fields
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            formComponents.buildNormalTextField(
+                              _nameController,
+                              Text(
+                                'name',
+                                style: theme.typography.bodySmall,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            formComponents.buildNormalTextField(
+                              _usernameController,
+                              Text(
+                                'username',
+                                style: theme.typography.bodySmall,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            state.user.phone == null
+                                ? formComponents.buildNormalTextField(
+                                    _emailController,
+                                    isReadOnly: true,
+                                    Text(
+                                      'email',
+                                      style: theme.typography.bodySmall,
+                                    ),
+                                  )
+                                : formComponents.buildNormalTextField(
+                                    _phoneController,
+                                    isReadOnly: true,
+                                    Text(
+                                      'phone',
+                                      style: theme.typography.bodySmall,
+                                    ),
+                                  ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1),
+                            BlocBuilder<UserCubit, UserState>(
+                              builder: (context, state) {
+                                return PrimaryButton(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  onPressed: () {
+                                    String? updatedUsername;
+
+                                    String? updatedName;
+
+                                    if (username !=
+                                        _usernameController.text.trim()) {
+                                      updatedUsername =
+                                          _usernameController.text.trim();
+                                    }
+
+                                    if (name != _nameController.text.trim()) {
+                                      updatedName = _nameController.text.trim();
+                                    }
+                                    if (_selectedImage == null &&
+                                        updatedUsername == null &&
+                                        updatedName == null) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          backgroundColor:
+                                              theme.primaryBackground,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                15.0), // Set border radius for rounded corners
+                                          ),
+                                          title: Text(
+                                            'Message',
+                                            style:
+                                                theme.typography.headlineSmall,
+                                          ),
+                                          content: Text(
+                                            'No changes made.',
+                                            style: theme.typography.bodySmall,
+                                          ),
+                                          actions: [
+                                            PrimaryButton(
+                                                width: 50,
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                                color: theme.primary,
+                                                child: Text(
+                                                  'Okay',
+                                                  style: theme
+                                                      .typography.labelSmall,
+                                                )),
+                                          ],
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    context.read<UserCubit>().updateProfile(
+                                        _selectedImage,
+                                        updatedUsername,
+                                        updatedName);
+                                  },
+                                  color: theme.primary,
+                                  child: state is UpdatingProfile
+                                      ? CircularProgressIndicator(
+                                          color: theme.secondary,
+                                        )
+                                      : Text(
+                                          'Save Changes',
+                                          style: theme.typography.labelSmall,
+                                        ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Center(
+                  child: Text(
+                    'You are not logged in.',
+                    style: theme.typography.headlineMedium,
+                  ),
                 );
-              }
-              return Center(
-                child: Text(
-                  'You are not logged in.',
-                  style: theme.typography.headlineMedium,
-                ),
-              );
-            },
+              },
+            ),
           ),
         ),
       ),

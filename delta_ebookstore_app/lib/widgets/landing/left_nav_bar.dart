@@ -35,7 +35,8 @@ class LeftNavBar extends StatelessWidget {
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: theme.tertiary,
                     child: ClipOval(
-                      child: state.user.profilePicture == null
+                      child: state.user.profilePicture == null ||
+                              state.user.profilePicture!.isEmpty
                           ? Image.asset(
                               'assets/images/boy.png',
                               fit: BoxFit.cover, // Optional: Adjust fit
