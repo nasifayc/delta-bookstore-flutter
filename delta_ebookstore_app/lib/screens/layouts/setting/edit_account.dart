@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
+import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
@@ -92,11 +93,12 @@ class _EditAccountState extends State<EditAccount> {
                           backgroundImage: _selectedImage != null
                               ? FileImage(_selectedImage!)
                               : (state.user.profilePicture != null &&
-                                          state.user.profilePicture!.isNotEmpty
-                                      ? NetworkImage(state.user.profilePicture!)
-                                      : const AssetImage(
-                                          'assets/images/boy.png'))
-                                  as ImageProvider<Object>,
+                                      state.user.profilePicture!.isNotEmpty
+                                  ? NetworkImage(
+                                      '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}')
+                                  : const AssetImage(
+                                      'assets/images/boy.png')) as ImageProvider<
+                                  Object>,
                           backgroundColor: theme.tertiary,
                         ),
 
@@ -139,22 +141,25 @@ class _EditAccountState extends State<EditAccount> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          formComponents.buildNormalTextField(
-                            _emailController,
-                            Text(
-                              'email',
-                              style: theme.typography.bodySmall,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          formComponents.buildNormalTextField(
-                            _phoneController,
-                            Text(
-                              'phone',
-                              style: theme.typography.bodySmall,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+                          state.user.phone == null
+                              ? formComponents.buildNormalTextField(
+                                  _emailController,
+                                  isReadOnly: true,
+                                  Text(
+                                    'email',
+                                    style: theme.typography.bodySmall,
+                                  ),
+                                )
+                              : formComponents.buildNormalTextField(
+                                  _phoneController,
+                                  isReadOnly: true,
+                                  Text(
+                                    'phone',
+                                    style: theme.typography.bodySmall,
+                                  ),
+                                ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1),
                           PrimaryButton(
                               width: MediaQuery.of(context).size.width * 0.7,
                               onPressed: null,

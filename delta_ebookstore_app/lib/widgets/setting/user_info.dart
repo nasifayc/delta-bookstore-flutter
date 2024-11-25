@@ -17,14 +17,21 @@ class UserInfo extends StatelessWidget {
           return Column(
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 80,
-                  child: state.user.profilePicture == null
-                      ? Image.asset("assets/images/boy.png")
-                      : Image.network(
-                          '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}',
-                          fit: BoxFit.cover, // Optional: Adjust fit
-                        ), //user profile pic found
+                child: Container(
+                  width: 160,
+                  height: 160,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle, // Ensures the container is circular
+                    image: DecorationImage(
+                      image: state.user.profilePicture == null
+                          ? const AssetImage(
+                              "assets/images/boy.png") // Placeholder image
+                          : NetworkImage(
+                              '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}'),
+                      fit: BoxFit
+                          .cover, // Ensures the image covers the circle properly
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(

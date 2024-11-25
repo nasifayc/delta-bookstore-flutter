@@ -126,9 +126,12 @@ class FormComponents {
   }
 
   Widget buildNormalTextField(TextEditingController controller, Text labelText,
-      {Widget? prefixIcon, String? Function(String?)? validator}) {
+      {Widget? prefixIcon,
+      String? Function(String?)? validator,
+      bool? isReadOnly}) {
     return TextFormField(
       controller: controller,
+      readOnly: isReadOnly ?? false,
       decoration: InputDecoration(
         label: labelText,
         prefixIcon: prefixIcon != null
