@@ -24,7 +24,7 @@ class UserInfo extends StatelessWidget {
                       : Image.network(
                           '${ApiUrl.userProfileImageUrl}${state.user.profilePicture}',
                           fit: BoxFit.cover, // Optional: Adjust fit
-                        ),
+                        ), //user profile pic found
                 ),
               ),
               const SizedBox(
