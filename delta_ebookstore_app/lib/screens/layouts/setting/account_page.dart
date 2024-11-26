@@ -66,7 +66,7 @@ class _AccountPageState extends State<AccountPage> {
                   color: theme.primary,
                 ),
                 onTap: () {
-                  // Navigate to Account Settings screen
+                  Navigator.of(context).pushNamed('/change-password');
                 },
               ),
               ListTile(

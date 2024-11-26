@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'dart:io';
 
@@ -36,6 +37,26 @@ class UserCubit extends Cubit<UserState> {
       }
     } catch (e) {
       emit(UserProfileUpdatedFailed(error: e.toString()));
+    }
+  }
+
+  Future<void> changePassword(
+      String prevPwd, String newPwd, String confirmPwd) async {
+    emit(ChangingPassword());
+    try {
+      http.Response response =
+          await userService.changePassword(prevPwd, newPwd, confirmPwd);
+      final result = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        emit(PasswordChangedSuccess());
+      } else {
+        emit(PasswordChangedFailure(
+            error: result['error'] ?? result['message'] ?? 'unknown error'));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PasswordChangedFailure(error: e.toString()));
     }
   }
 }

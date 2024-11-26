@@ -7,6 +7,7 @@ import 'package:delta_ebookstore_app/controllers/user/user_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/user/user_state.dart';
 import 'package:delta_ebookstore_app/core/api_url.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/utils/static_data.dart';
 import 'package:delta_ebookstore_app/widgets/common/form_components.dart';
 import 'package:delta_ebookstore_app/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -82,67 +83,32 @@ class _EditAccountState extends State<EditAccount> {
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state is UserProfileUpdatedFailed) {
-            log(state.error);
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                backgroundColor: theme.primaryBackground,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      15.0), // Set border radius for rounded corners
-                ),
-                title: Text(
-                  'Error',
-                  style: theme.typography.headlineSmall
-                      .copyWith(color: theme.error),
-                ),
-                content: Text(
-                  state.error,
-                  style: theme.typography.bodySmall,
-                  maxLines: 10,
-                ),
-                actions: [
-                  PrimaryButton(
-                      width: 100,
-                      onPressed: () => Navigator.of(context).pop(),
-                      color: theme.primary,
-                      child: Text(
-                        'Okay',
-                        style: theme.typography.labelSmall,
-                      )),
-                ],
+            StaticData.showDialogBox(
+              context,
+              Text(
+                'Error',
+                style:
+                    theme.typography.headlineSmall.copyWith(color: theme.error),
+              ),
+              Text(
+                state.error,
+                style: theme.typography.bodySmall,
+                maxLines: 10,
               ),
             );
           }
 
           if (state is UserProfileUpdatedSucceeded) {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                backgroundColor: theme.primaryBackground,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      15.0), // Set border radius for rounded corners
-                ),
-                title: Text(
-                  'Success',
-                  style: theme.typography.headlineSmall
-                      .copyWith(color: Colors.green),
-                ),
-                content: Text(
-                  state.successMessage,
-                  style: theme.typography.bodySmall,
-                ),
-                actions: [
-                  PrimaryButton(
-                      width: 100,
-                      onPressed: () => Navigator.of(context).pop(),
-                      color: theme.primary,
-                      child: Text(
-                        'Okay',
-                        style: theme.typography.labelSmall,
-                      )),
-                ],
+            StaticData.showDialogBox(
+              context,
+              Text(
+                'Success',
+                style: theme.typography.headlineSmall
+                    .copyWith(color: Colors.green),
+              ),
+              Text(
+                state.successMessage,
+                style: theme.typography.bodySmall,
               ),
             );
           }
@@ -256,38 +222,18 @@ class _EditAccountState extends State<EditAccount> {
                                     if (_selectedImage == null &&
                                         updatedUsername == null &&
                                         updatedName == null) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          backgroundColor:
-                                              theme.primaryBackground,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                15.0), // Set border radius for rounded corners
-                                          ),
-                                          title: Text(
-                                            'Message',
-                                            style:
-                                                theme.typography.headlineSmall,
-                                          ),
-                                          content: Text(
-                                            'No changes made.',
-                                            style: theme.typography.bodySmall,
-                                          ),
-                                          actions: [
-                                            PrimaryButton(
-                                                width: 50,
-                                                onPressed: () =>
-                                                    Navigator.of(context).pop(),
-                                                color: theme.primary,
-                                                child: Text(
-                                                  'Okay',
-                                                  style: theme
-                                                      .typography.labelSmall,
-                                                )),
-                                          ],
+                                      StaticData.showDialogBox(
+                                        context,
+                                        Text(
+                                          'Message',
+                                          style: theme.typography.headlineSmall,
+                                        ),
+                                        Text(
+                                          'No changes made.',
+                                          style: theme.typography.bodySmall,
                                         ),
                                       );
+
                                       return;
                                     }
                                     context.read<UserCubit>().updateProfile(

@@ -3,6 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class StaticData {
+  static Future<dynamic> showDialogBox(
+    BuildContext context,
+    Text title,
+    Text content,
+  ) {
+    AppTheme theme = AppTheme.of(context);
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.primaryBackground,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+              15.0), // Set border radius for rounded corners
+        ),
+        title: title,
+        content: content,
+        actions: [
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Text(
+                'Ok',
+                style: theme.typography.headlineSmall,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   static Shimmer getShimmerEffect(AppTheme theme, {double height = 100}) {
     return Shimmer.fromColors(
       baseColor: theme.primary,

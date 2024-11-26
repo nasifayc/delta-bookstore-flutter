@@ -15,7 +15,7 @@ class AuthService {
       "confirmPwd": confirmPwd,
       "registerByPhone": false
     };
-    log("--------------- Reached Here -------------------");
+
     final response = await http.post(Uri.parse(ApiUrl.signupUrl),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -66,6 +66,7 @@ class AuthService {
     final response = await http
         .get(Uri.parse(ApiUrl.verifyTokenUrl), headers: <String, String>{
       'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
     });
 
     return response;

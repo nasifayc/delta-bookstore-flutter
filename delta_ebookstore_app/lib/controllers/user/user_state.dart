@@ -9,6 +9,18 @@ final class UserInitial extends UserState {}
 
 final class UpdatingProfile extends UserState {}
 
+final class ChangingPassword extends UserState {}
+
+final class PasswordChangedSuccess extends UserState {}
+
+final class PasswordChangedFailure extends UserState {
+  final String error;
+
+  PasswordChangedFailure({required this.error});
+  @override
+  List<Object?> get props => [error];
+}
+
 final class UserProfileUpdatedSucceeded extends UserState {
   final String successMessage = "User profile updated successfully";
 }

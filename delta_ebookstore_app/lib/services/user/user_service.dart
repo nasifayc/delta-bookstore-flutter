@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:delta_ebookstore_app/core/api_url.dart';
@@ -22,6 +24,25 @@ class UserService {
     }
 
     final response = await request.send();
+
+    return response;
+  }
+
+  Future<http.Response> changePassword(
+      String prevPwd, String newPwd, String confirmPwd) async {
+    log('$prevPwd $newPwd $confirmPwd');
+    String? token = await LoginManager.getUserToken();
+    Map<String, dynamic> requestBody = {
+      "prevPwd": prevPwd,
+      "newPwd": newPwd,
+      "confirmPwd": confirmPwd
+    };
+    final response = await http.post(Uri.parse(ApiUrl.changePasswodUrl),
+        headers: <String, String>{
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestBody));
 
     return response;
   }
