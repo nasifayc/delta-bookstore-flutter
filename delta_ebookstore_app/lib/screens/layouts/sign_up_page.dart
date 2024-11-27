@@ -1,6 +1,7 @@
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
+import 'package:delta_ebookstore_app/screens/layouts/otp_screen.dart';
 import 'package:delta_ebookstore_app/widgets/signup/signup_from.dart';
 import 'package:delta_ebookstore_app/widgets/welcome_card.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   .showSnackBar(SnackBar(content: Text(state.errorMessage)));
             }
             if (state is OtpPending) {
-              Navigator.of(context).pushNamed('/otp');
+              // Navigator.of(context).pushNamed('/otp');
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => OtpScreen(
+                  signedUpWithPhone: state.signedUpwithPhone,
+                ),
+              ));
             }
           },
           child: const Column(

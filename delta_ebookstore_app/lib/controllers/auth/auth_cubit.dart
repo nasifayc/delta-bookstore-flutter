@@ -85,8 +85,8 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> validateOtp(
-      String emailOrPhone, String otp, String otpType) async {
+  Future<void> validateOtp(String emailOrPhone, String otp, String otpType,
+      bool signedUpwithPhone) async {
     emit(Authenticating());
     try {
       http.Response response =
@@ -97,6 +97,8 @@ class AuthCubit extends Cubit<AuthState> {
         emit(Authenticated(user: UserModel.fromJson(result["appUser"])));
       } else {
         emit(AuthFailed(errorMessage: result['error']));
+        emit(OtpPending(
+            phoneOrEmail: emailOrPhone, signedUpwithPhone: signedUpwithPhone));
       }
     } catch (e) {
       emit(AuthFailed(errorMessage: e.toString()));

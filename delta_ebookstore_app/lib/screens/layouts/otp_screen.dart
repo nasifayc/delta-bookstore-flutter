@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  final bool signedUpWithPhone;
+  const OtpScreen({super.key, required this.signedUpWithPhone});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,9 @@ class OtpScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              PinForm()
+              PinForm(
+                signedUpwithPhone: signedUpWithPhone,
+              )
             ],
           ),
         ));

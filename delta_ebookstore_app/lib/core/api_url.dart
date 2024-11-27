@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const String baseUrl = "http://192.168.0.101:4003";
+  static const String baseUrl = "http://192.168.236.212:4003";
 
   static const String signupUrl = "$baseUrl/api/auth/sign-up";
   static const String signinUrl = "$baseUrl/api/auth/sign-in";

@@ -46,7 +46,7 @@ class _MainAppState extends State<MainApp> {
           routes: {
             '/login': (context) => const LoginPage(),
             '/signup': (context) => const SignUpPage(),
-            '/otp': (context) => const OtpScreen(),
+            // '/otp': (context) => const OtpScreen(),
             '/settings': (context) => const SettingPage(),
             '/search': (context) => const SearchPage(),
             '/account': (context) => const AccountPage(),

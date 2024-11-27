@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:delta_ebookstore_app/controllers/auth/auth_cubit.dart';
 import 'package:delta_ebookstore_app/controllers/auth/auth_state.dart';
 import 'package:delta_ebookstore_app/core/theme/app_theme.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PinForm extends StatelessWidget {
+  final bool signedUpwithPhone;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController pin1 = TextEditingController();
   final TextEditingController pin2 = TextEditingController();
@@ -14,9 +17,7 @@ class PinForm extends StatelessWidget {
   final TextEditingController pin4 =
       TextEditingController(); // Input to verify OTP// Specify email or phone verification
 
-  PinForm({
-    super.key,
-  });
+  PinForm({super.key, required this.signedUpwithPhone});
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +87,13 @@ class PinForm extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             final otpCode =
                                 "${pin1.text}${pin2.text}${pin3.text}${pin4.text}";
+                            log(state.toString());
                             if (state is OtpPending) {
                               context.read<AuthCubit>().validateOtp(
-                                    state.phoneOrEmail,
-                                    otpCode,
-                                    "REGISTRATION_OTP",
-                                  );
+                                  state.phoneOrEmail,
+                                  otpCode,
+                                  "REGISTRATION_OTP",
+                                  signedUpwithPhone);
                             }
                           }
                         },
